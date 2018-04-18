@@ -18,13 +18,6 @@ namespace MartabakProvis.Repositories
             db = new Database();
         }
 
-        public MenuModel GetByid(int id)
-        {
-            db.Open();
-            var data = db.connection.Get<MenuModel>(id);
-            db.Close();
-            return data;
-        }
 
         public bool Delete(MenuModel menu)
         {
@@ -61,7 +54,10 @@ namespace MartabakProvis.Repositories
 
         public MenuModel GetById(int id)
         {
-            throw new NotImplementedException();
+            db.Open();
+            var data = db.connection.Get<MenuModel>(id);
+            db.Close();
+            return data;
         }
     }
 }

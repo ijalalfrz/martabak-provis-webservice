@@ -27,7 +27,7 @@ namespace MartabakProvis.Controllers
         [HttpGet("{id}", Name = "Get")]
         public MenuModel Get(int id)
         {
-            var data = repo.GetByid(id);
+            var data = repo.GetById(id);
 
             return data;
         }
@@ -44,8 +44,12 @@ namespace MartabakProvis.Controllers
         [HttpPut("{id}", Name = "Update")]
         public void Put(int id, [FromBody]MenuModel value)
         {
-            var data = repo.GetByid(id);
-            
+            var data = repo.GetById(id);
+            var id_part = data.id_menu;
+            data = value;
+            data.id_menu = id_part;
+            repo.Update(value);
+
 
 
         }
@@ -54,7 +58,7 @@ namespace MartabakProvis.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var data = repo.GetByid(id);
+            var data = repo.GetById(id);
 
             repo.Delete(data);
         }

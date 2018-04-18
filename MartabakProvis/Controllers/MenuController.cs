@@ -32,11 +32,6 @@ namespace MartabakProvis.Controllers
             return data;
         }
         
-        // POST: api/Menu
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]

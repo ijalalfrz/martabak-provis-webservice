@@ -22,7 +22,7 @@ namespace MartabakProvis.Controllers
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)
         {
-            return "value";
+            return "rizal";
         }
         
         // POST: api/Menu

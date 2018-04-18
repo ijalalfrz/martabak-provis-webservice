@@ -47,6 +47,9 @@ namespace MartabakProvis.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var data = repo.GetByid(id);
+
+            repo.Delete(data);
         }
     }
 }

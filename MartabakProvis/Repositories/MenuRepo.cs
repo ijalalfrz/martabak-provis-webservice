@@ -28,7 +28,10 @@ namespace MartabakProvis.Repositories
 
         public bool Delete(MenuModel plg)
         {
-            throw new NotImplementedException();
+            db.Open();
+            var data = db.connection.Delete<MenuModel>(plg);
+            db.Close();
+            return true;
         }
 
         public List<MenuModel> GetAll()

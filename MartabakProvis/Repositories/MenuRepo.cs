@@ -36,7 +36,10 @@ namespace MartabakProvis.Repositories
 
         public List<MenuModel> GetAll()
         {
-            throw new NotImplementedException();
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+            db.Close();
+            return data;
         }
 
 
@@ -50,7 +53,10 @@ namespace MartabakProvis.Repositories
 
         public bool Update(MenuModel menu)
         {
-            throw new NotImplementedException();
+            db.Open();
+            var data = db.connection.Update<MenuModel>(menu);
+            db.Close();
+            return true;
         }
 
         public MenuModel GetById(int id)

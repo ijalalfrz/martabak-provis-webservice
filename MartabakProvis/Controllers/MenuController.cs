@@ -16,10 +16,11 @@ namespace MartabakProvis.Controllers
         MenuRepo repo = new MenuRepo();
 
         // GET: api/Menu
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet(Name = "GetAll")]
+        public IEnumerable<MenuModel> GetAll()
         {
-            return new string[] { "Afina Hadaina Yudianita", "value2" };
+            var data = repo.GetAll();
+            return data;
         }
 
         // GET: api/Menu/5
@@ -45,9 +46,13 @@ namespace MartabakProvis.Controllers
         }
 
         // PUT: api/Menu/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut("{id}", Name = "Update")]
+        public void Put(int id, [FromBody]MenuModel value)
         {
+            var data = repo.GetByid(id);
+            
+
+
         }
         
         // DELETE: api/ApiWithActions/5

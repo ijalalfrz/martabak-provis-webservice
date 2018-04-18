@@ -26,10 +26,10 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
-        public bool Delete(MenuModel plg)
+        public bool Delete(MenuModel menu)
         {
             db.Open();
-            var data = db.connection.Delete<MenuModel>(plg);
+            var data = db.connection.Delete<MenuModel>(menu);
             db.Close();
             return true;
         }
@@ -40,12 +40,15 @@ namespace MartabakProvis.Repositories
         }
 
 
-        public bool Insert(MenuModel plg)
+        public bool Insert(MenuModel menu)
         {
-            throw new NotImplementedException();
+            db.Open();
+            var data = db.connection.Insert<MenuModel>(menu);
+            db.Close();
+            return true;
         }
 
-        public bool Update(MenuModel plg)
+        public bool Update(MenuModel menu)
         {
             throw new NotImplementedException();
         }

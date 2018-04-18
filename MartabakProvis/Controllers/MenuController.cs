@@ -36,7 +36,14 @@ namespace MartabakProvis.Controllers
         public void Post([FromBody]string value)
         {
         }
-        
+
+        // POST: api/Menu
+        [HttpPost(Name = "Insert")]
+        public void Insert([FromBody]MenuModel value)
+        {
+            repo.Insert(value);
+        }
+
         // PUT: api/Menu/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)

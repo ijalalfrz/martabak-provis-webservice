@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MartabakProvis.Repositories;
+using MartabakProvis.Models;
 
 namespace MartabakProvis.Controllers
 {
@@ -11,6 +13,8 @@ namespace MartabakProvis.Controllers
     [Route("api/Menu")]
     public class MenuController : Controller
     {
+        MenuRepo repo = new MenuRepo();
+
         // GET: api/Menu
         [HttpGet]
         public IEnumerable<string> Get()
@@ -20,9 +24,11 @@ namespace MartabakProvis.Controllers
 
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        public MenuModel Get(int id)
         {
-            return "rizal";
+            var data = repo.GetByid(id);
+
+            return data;
         }
         
         // POST: api/Menu

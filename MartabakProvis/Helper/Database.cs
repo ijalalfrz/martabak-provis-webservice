@@ -23,10 +23,10 @@ namespace MartabakProvis.Helper
 
         private void Initialize()
         {
-            server = "127.0.0.1";
-            database = "db_martabak";
-            uid = "root";
-            password = "";
+            server = "202.52.146.28";
+            database = "csupicom_martabaksimamen";
+            uid = "csupicom_mamen";
+            password = "Rahasiaku123";
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" +
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";

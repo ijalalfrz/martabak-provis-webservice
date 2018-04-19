@@ -25,7 +25,7 @@ namespace MartabakProvis.Controllers
         }
 
         // GET
-        [HttpGet("{kategori}", Name = "GetByCategory")]
+        [HttpGet("category/{kategori}", Name = "GetByCategory")]
         public IEnumerable<MenuModel> GetByCategory(string kategori)
         {
             var data = repo.GetByCategory(kategori);

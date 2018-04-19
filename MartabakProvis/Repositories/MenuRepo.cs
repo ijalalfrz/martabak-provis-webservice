@@ -39,7 +39,17 @@ namespace MartabakProvis.Repositories
         public List<MenuModel> GetByCategory(string kategori)
         {
             db.Open();
-            var data = db.connection.GetAll<MenuModel>().ToList();
+            var selectSql = "SELECT * FROM t_menu WHERE kategori_menu = '" + kategori + "'";
+            MenuModel menu = new MenuModel();
+            var data = db.connection.Query<MenuModel>(selectSql, new
+            {
+                menu.id_menu,
+                menu.topping,
+                menu.kategori_menu,
+                menu.size_menu,
+                menu.gambar,
+                menu.harga
+            }).ToList();
             db.Close();
             return data;
         }

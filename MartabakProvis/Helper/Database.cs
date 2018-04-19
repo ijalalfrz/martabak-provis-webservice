@@ -22,13 +22,13 @@ namespace MartabakProvis.Helper
 
         private void Initialize()
         {
-            server = "202.52.146.28";
-            database = "csupicom_martabaksimamen";
-            uid = "csupicom_mamen";
-            password = "Rahasiaku123";
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" +
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            server = "85.10.205.173";
+            database = "martabakprovis";
+            uid = "mamenkece";
+            password = "rahasiaku123";
+            string connectionString = String.Format(
+            "server={0};Port={1}; database={2};UID={3};password={4}",
+            server, "3307", database, uid, password);
 
             connection = new MySqlConnection(connectionString);
         }

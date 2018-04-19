@@ -11,6 +11,7 @@ namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
     [Route("api/Menu")]
+
     public class MenuController : Controller
     {
         MenuRepo repo = new MenuRepo();
@@ -23,12 +24,19 @@ namespace MartabakProvis.Controllers
             return data;
         }
 
+        // GET
+        [HttpGet("{kategori}", Name = "GetByCategory")]
+        public IEnumerable<MenuModel> GetByCategory(string kategori)
+        {
+            var data = repo.GetByCategory(kategori);
+            return data;
+        }
+
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "Get")]
         public MenuModel Get(int id)
         {
             var data = repo.GetById(id);
-
             return data;
         }
         
@@ -49,9 +57,6 @@ namespace MartabakProvis.Controllers
             data = value;
             data.id_menu = id_part;
             repo.Update(value);
-
-
-
         }
         
         // DELETE: api/ApiWithActions/5
@@ -59,7 +64,6 @@ namespace MartabakProvis.Controllers
         public void Delete(int id)
         {
             var data = repo.GetById(id);
-
             repo.Delete(data);
         }
     }

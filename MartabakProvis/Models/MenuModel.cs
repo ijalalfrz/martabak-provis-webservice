@@ -9,6 +9,7 @@ namespace MartabakProvis.Models
     [Table("t_menu")]
     public class MenuModel
     {
+ 
         [Key]
         public int id_menu { get; set; }
         public string topping { get; set; }

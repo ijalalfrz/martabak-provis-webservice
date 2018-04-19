@@ -6,6 +6,7 @@ using MartabakProvis.Helper;
 using MartabakProvis.Models;
 using MartabakProvis.Interface;
 using Dapper.Contrib.Extensions;
+using Dapper;
 
 namespace MartabakProvis.Repositories
 {
@@ -28,6 +29,14 @@ namespace MartabakProvis.Repositories
         }
 
         public List<MenuModel> GetAll()
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+            db.Close();
+            return data;
+        }
+
+        public List<MenuModel> GetByCategory(string kategori)
         {
             db.Open();
             var data = db.connection.GetAll<MenuModel>().ToList();

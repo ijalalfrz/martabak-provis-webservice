@@ -54,6 +54,24 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
+        public List<MenuModel> GetBySize(string size)
+        {
+            db.Open();
+            var selectSql = "SELECT * FROM t_menu WHERE size_menu = '" + size + "'";
+            MenuModel menu = new MenuModel();
+            var data = db.connection.Query<MenuModel>(selectSql, new
+            {
+                menu.id_menu,
+                menu.topping,
+                menu.kategori_menu,
+                menu.size_menu,
+                menu.gambar,
+                menu.harga
+            }).ToList();
+            db.Close();
+            return data;
+        }
+
 
         public bool Insert(MenuModel menu)
         {

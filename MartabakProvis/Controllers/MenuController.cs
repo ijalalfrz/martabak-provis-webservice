@@ -24,11 +24,19 @@ namespace MartabakProvis.Controllers
             return data;
         }
 
-        // GET
+        // GET : api/Menu/category/Manis
         [HttpGet("category/{kategori}", Name = "GetByCategory")]
         public IEnumerable<MenuModel> GetByCategory(string kategori)
         {
             var data = repo.GetByCategory(kategori);
+            return data;
+        }
+
+        // GET : api/Menu/size/Medium
+        [HttpGet("size/{uk}", Name = "GetBySize")]
+        public IEnumerable<MenuModel> GetBySize(string uk)
+        {
+            var data = repo.GetBySize(uk);
             return data;
         }
 

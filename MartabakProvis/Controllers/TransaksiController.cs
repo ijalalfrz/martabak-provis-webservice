@@ -47,21 +47,29 @@ namespace MartabakProvis.Controllers
         }
 
         // POST: api/Transaksi
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost(Name = "InsertTransaksi")]
+        public void Post([FromBody]TransaksiModel value)
         {
+            repo.Insert(value);
         }
         
         // PUT: api/Transaksi/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [HttpPut("{id}", Name = "UpdateTransaksi")]
+        public void Put(int id, [FromBody]TransaksiModel value)
         {
+            var data = repo.GetById(id);
+            var id_part = data.id_transaksi;
+            data = value;
+            data.id_transaksi = id_part;
+            repo.Update(value);
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var data = repo.GetById(id);
+            repo.Delete(data);
         }
     }
 }

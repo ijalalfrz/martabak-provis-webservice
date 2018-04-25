@@ -32,6 +32,38 @@ namespace MartabakProvis.Controllers
             return data;
         }
 
+        // GET: api/Menu/hargaAsc
+        [HttpGet("hargaAsc/", Name="GetAllHargaAscending")]
+        public IEnumerable<MenuModel> GetAllHargaAscending()
+        {
+            var data = repo.GetAllHargaAscending();
+            return data;
+        }
+
+        // GET: api/Menu/hargaDesc
+        [HttpGet("hargaDesc/", Name = "GetAllHargaDescending")]
+        public IEnumerable<MenuModel> GetAllHargaDescending()
+        {
+            var data = repo.GetAllHargaDescending();
+            return data;
+        }
+
+        // GET: api/Menu/namaAsc
+        [HttpGet("namaAsc/", Name = "GetAllNamaAscending")]
+        public IEnumerable<MenuModel> GetAllNamaAscending()
+        {
+            var data = repo.GetAllNamaAscending();
+            return data;
+        }
+
+        // GET: api/Menu/namaDesc
+        [HttpGet("namaDesc/", Name = "GetAllNamaDescending")]
+        public IEnumerable<MenuModel> GetAllNamaDescending()
+        {
+            var data = repo.GetAllNamaDescending();
+            return data;
+        }
+
         // GET : api/Menu/size/Medium
         [HttpGet("size/{uk}", Name = "GetBySize")]
         public IEnumerable<MenuModel> GetBySize(string uk)

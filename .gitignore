@@ -51,6 +51,7 @@ project.lock.json
 project.fragment.lock.json
 artifacts/
 **/Properties/launchSettings.json
+**/Properties/PublishProfiles
 
 *_i.c
 *_p.c
@@ -145,6 +146,8 @@ DocProject/Help/*.hhk
 DocProject/Help/*.hhp
 DocProject/Help/Html2
 DocProject/Help/html
+
+
 
 # Click-Once directory
 publish/

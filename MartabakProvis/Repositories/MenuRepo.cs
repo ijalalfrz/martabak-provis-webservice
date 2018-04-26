@@ -84,16 +84,11 @@ namespace MartabakProvis.Repositories
         public List<MenuModel> GetByCategory(string kategori)
         {
             db.Open();
-            var selectSql = "SELECT * FROM t_menu WHERE kategori_menu = '" + kategori + "'";
+            var selectSql = "SELECT * FROM t_menu WHERE kategori_menu = @kategori";
             MenuModel menu = new MenuModel();
             var data = db.connection.Query<MenuModel>(selectSql, new
             {
-                menu.id_menu,
-                menu.topping,
-                menu.kategori_menu,
-                menu.size_menu,
-                menu.gambar,
-                menu.harga
+                kategori_menu = kategori
             }).ToList();
             db.Close();
             return data;
@@ -102,16 +97,11 @@ namespace MartabakProvis.Repositories
         public List<MenuModel> GetBySize(string size)
         {
             db.Open();
-            var selectSql = "SELECT * FROM t_menu WHERE size_menu = '" + size + "'";
+            var selectSql = "SELECT * FROM t_menu WHERE size_menu = @size ";
             MenuModel menu = new MenuModel();
-            var data = db.connection.Query<MenuModel>(selectSql, new
+            var data = db.connection.Query<MenuModel>(selectSql,new
             {
-                menu.id_menu,
-                menu.topping,
-                menu.kategori_menu,
-                menu.size_menu,
-                menu.gambar,
-                menu.harga
+                size = size
             }).ToList();
             db.Close();
             return data;

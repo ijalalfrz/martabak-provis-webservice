@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MartabakProvis.Repositories;
 using MartabakProvis.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Menu")]
+    [Route("api/Menu"),Authorize]
 
     public class MenuController : Controller
     {

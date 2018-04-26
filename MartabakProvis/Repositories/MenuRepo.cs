@@ -32,8 +32,53 @@ namespace MartabakProvis.Repositories
         {
             db.Open();
             var data = db.connection.GetAll<MenuModel>().ToList();
+            
             db.Close();
             return data;
+        }
+
+        public List<MenuModel> GetAllHargaAscending()
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+
+            List<MenuModel> SortedList = data.OrderBy(o => o.harga).ToList();
+
+            db.Close();
+            return SortedList;
+        }
+
+        public List<MenuModel> GetAllHargaDescending()
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+
+            List<MenuModel> SortedList = data.OrderByDescending(o => o.harga).ToList();
+
+            db.Close();
+            return SortedList;
+        }
+
+        public List<MenuModel> GetAllNamaAscending()
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+
+            List<MenuModel> SortedList = data.OrderBy(o => o.topping).ToList();
+
+            db.Close();
+            return SortedList;
+        }
+
+        public List<MenuModel> GetAllNamaDescending()
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+
+            List<MenuModel> SortedList = data.OrderByDescending(o => o.topping).ToList();
+
+            db.Close();
+            return SortedList;
         }
 
         public List<MenuModel> GetByCategory(string kategori)
@@ -96,5 +141,7 @@ namespace MartabakProvis.Repositories
             db.Close();
             return data;
         }
+
+       
     }
 }

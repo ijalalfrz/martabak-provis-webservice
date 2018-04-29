@@ -14,7 +14,6 @@ namespace MartabakProvis.Models
         public DateTime tanggal { get; set; }
         public int jumlah_beli { get; set; }
         public decimal total_harga { get; set; }
-        public int status { get; set; }
-        public int xid_pembeli { get; set; }
+        public int id_user { get; set; }
     }
 }

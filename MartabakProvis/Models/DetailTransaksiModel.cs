@@ -11,10 +11,10 @@ namespace MartabakProvis.Models
     {
         [Key]
         public int id_detail_transaksi { get; set; }
-        public int xid_menu { get; set; }
         public int jumlah { get; set; }
-        public decimal harga { get; set; }
-        public int xid_transaksi { get; set; }
-
+        public decimal harga_sekarang { get; set; }
+        public decimal total_harga { get; set; }
+        public int id_transaksi { get; set; }
+        public int id_menu { get; set; }
     }
 }

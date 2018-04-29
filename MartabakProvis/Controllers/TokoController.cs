@@ -10,42 +10,42 @@ using MartabakProvis.Models;
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Pembeli")]
-    public class PembeliController : Controller
+    [Route("api/Toko")]
+    public class TokoController : Controller
     {
-        PembeliRepo repo = new PembeliRepo();
+        TokoRepo repo = new TokoRepo();
 
-        // GET: api/Pembeli
-        [HttpGet(Name = "GetAllPembeli")]
-        public IEnumerable<PembeliModel> GetAllPembeli()
+        // GET: api/Toko
+        [HttpGet(Name = "GetAllToko")]
+        public IEnumerable<TokoModel> GetAllToko()
         {
             var data = repo.GetAll();
             return data;
         }
 
-        // GET: api/Pembeli/5
-        [HttpGet("{id}", Name = "GetPembeli")]
-        public PembeliModel GetPembeli(int id)
+        // GET: api/Toko/5
+        [HttpGet("{id}", Name = "GetToko")]
+        public TokoModel GetToko(int id)
         {
             var data = repo.GetById(id);
             return data;
         }
-        
-        // POST: api/Pembeli
-        [HttpPost(Name = "InsertPembeli")]
-        public void Insert([FromBody]PembeliModel value)
+
+        // POST: api/Toko
+        [HttpPost(Name = "InsertToko")]
+        public void Insert([FromBody]TokoModel value)
         {
             repo.Insert(value);
         }
 
-        // PUT: api/Pembeli/5
-        [HttpPut("{id}", Name = "UpdatePembeli")]
-        public void Put(int id, [FromBody]PembeliModel value)
+        // PUT: api/Toko/5
+        [HttpPut("{id}", Name = "UpdateToko")]
+        public void Put(int id, [FromBody]TokoModel value)
         {
             var data = repo.GetById(id);
-            var id_part = data.id_pembeli;
+            var id_part = data.id_toko;
             data = value;
-            data.id_pembeli = id_part;
+            data.id_toko = id_part;
             repo.Update(value);
         }
 

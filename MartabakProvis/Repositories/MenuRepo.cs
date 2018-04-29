@@ -37,6 +37,42 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
+        public List<MenuModel> GetAllHarga(string sort)
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+            List<MenuModel> SortedList;
+            if (sort == "asc")
+            {
+                SortedList = data.OrderBy(o => o.harga).ToList();
+            }
+            else
+            {
+                SortedList = data.OrderByDescending(o => o.harga).ToList();
+            }
+
+            db.Close();
+            return SortedList;
+        }
+
+        public List<MenuModel> GetAllNama(string sort)
+        {
+            db.Open();
+            var data = db.connection.GetAll<MenuModel>().ToList();
+            List<MenuModel> SortedList;
+            if (sort == "asc")
+            {
+                SortedList = data.OrderBy(o => o.topping).ToList();
+            }
+            else 
+            {
+                SortedList = data.OrderByDescending(o => o.topping).ToList();
+            }
+
+            db.Close();
+            return SortedList;
+        }
+
         public List<MenuModel> GetAllHargaAscending()
         {
             db.Open();

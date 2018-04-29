@@ -18,50 +18,43 @@ namespace MartabakProvis.Controllers
         MenuRepo repo = new MenuRepo();
 
         // GET: api/Menu
-        [HttpGet(Name = "GetAll")]
+        [HttpGet(Name = "GetAllMenu")]
         public IEnumerable<MenuModel> GetAll()
         {
             var data = repo.GetAll();
             return data;
         }
 
+        // GET: api/Menu/5
+        [HttpGet("{id}", Name = "GetMenuById")]
+        public MenuModel Get(int id)
+        {
+            var data = repo.GetById(id);
+            return data;
+        }
+
         // GET : api/Menu/category/Manis
-        [HttpGet("category/{kategori}", Name = "GetByCategory")]
+        [HttpGet("category/{kategori}", Name = "GeMenutByCategory")]
         public IEnumerable<MenuModel> GetByCategory(string kategori)
         {
             var data = repo.GetByCategory(kategori);
             return data;
         }
 
-        // GET: api/Menu/hargaAsc
-        [HttpGet("hargaAsc/", Name="GetAllHargaAscending")]
-        public IEnumerable<MenuModel> GetAllHargaAscending()
+        // GET: api/Menu/harga/asc
+        [HttpGet("harga/{sort}", Name = "GetAllHarga")]
+        public IEnumerable<MenuModel> GetAllHarga(string sort)
         {
-            var data = repo.GetAllHargaAscending();
+
+            var data = repo.GetAllHarga(sort);
             return data;
         }
 
-        // GET: api/Menu/hargaDesc
-        [HttpGet("hargaDesc/", Name = "GetAllHargaDescending")]
-        public IEnumerable<MenuModel> GetAllHargaDescending()
+        // GET: api/Menu/nama/asc
+        [HttpGet("nama/{sort}", Name = "GetAllNama")]
+        public IEnumerable<MenuModel> GetAllNama(string sort)
         {
-            var data = repo.GetAllHargaDescending();
-            return data;
-        }
-
-        // GET: api/Menu/namaAsc
-        [HttpGet("namaAsc/", Name = "GetAllNamaAscending")]
-        public IEnumerable<MenuModel> GetAllNamaAscending()
-        {
-            var data = repo.GetAllNamaAscending();
-            return data;
-        }
-
-        // GET: api/Menu/namaDesc
-        [HttpGet("namaDesc/", Name = "GetAllNamaDescending")]
-        public IEnumerable<MenuModel> GetAllNamaDescending()
-        {
-            var data = repo.GetAllNamaDescending();
+            var data = repo.GetAllNama(sort);
             return data;
         }
 
@@ -73,15 +66,6 @@ namespace MartabakProvis.Controllers
             return data;
         }
 
-        // GET: api/Menu/5
-        [HttpGet("{id}", Name = "Get")]
-        public MenuModel Get(int id)
-        {
-            var data = repo.GetById(id);
-            return data;
-        }
-        
-
         // POST: api/Menu
         [HttpPost(Name = "Insert")]
         public void Insert([FromBody]MenuModel value)
@@ -91,7 +75,7 @@ namespace MartabakProvis.Controllers
 
         // PUT: api/Menu/5
         [HttpPut("{id}", Name = "Update")]
-        public void Put(int id, [FromBody]MenuModel value)
+        public void Update(int id, [FromBody]MenuModel value)
         {
             var data = repo.GetById(id);
             var id_part = data.id_menu;

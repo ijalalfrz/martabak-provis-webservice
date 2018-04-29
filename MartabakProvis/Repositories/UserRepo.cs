@@ -18,6 +18,15 @@ namespace MartabakProvis.Repositories
             db = new Database();
         }
 
+        public List<UserModel> GetAll()
+        {
+            db.Open();
+            var data = db.connection.GetAll<UserModel>().ToList();
+
+            db.Close();
+            return data;
+        }
+
         public UserModel GetById(int id)
         {
             db.Open();
@@ -37,6 +46,30 @@ namespace MartabakProvis.Repositories
             });
             db.Close();
             return data;
+        }
+
+        public bool Insert(UserModel user)
+        {
+            db.Open();
+            var data = db.connection.Insert<UserModel>(user);
+            db.Close();
+            return true;
+        }
+
+        public bool Update(UserModel user)
+        {
+            db.Open();
+            var data = db.connection.Update<UserModel>(user);
+            db.Close();
+            return true;
+        }
+
+        public bool Delete(UserModel user)
+        {
+            db.Open();
+            var data = db.connection.Delete<UserModel>(user);
+            db.Close();
+            return true;
         }
 
 

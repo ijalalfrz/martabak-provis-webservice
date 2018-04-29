@@ -37,8 +37,7 @@ namespace MartabakProvis.Repositories
                     trs.tanggal,
                     trs.jumlah_beli,
                     trs.total_harga,
-                    trs.status,
-                    trs.xid_pembeli
+                    trs.id_user
                 }).ToList();
             db.Close();
             return data;
@@ -56,8 +55,7 @@ namespace MartabakProvis.Repositories
                     trs.tanggal,
                     trs.jumlah_beli,
                     trs.total_harga,
-                    trs.status,
-                    trs.xid_pembeli
+                    trs.id_user
                 }).ToList();
             db.Close();
             return data;

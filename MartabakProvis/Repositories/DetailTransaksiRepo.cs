@@ -35,10 +35,11 @@ namespace MartabakProvis.Repositories
                 new
                 {
                     detail.id_detail_transaksi,
-                    detail.xid_menu,
                     detail.jumlah,
-                    detail.harga,
-                    detail.xid_transaksi
+                    detail.harga_sekarang,
+                    detail.total_harga,
+                    detail.id_transaksi,
+                    detail.id_menu
                 }).ToList();
             db.Close();
             return data;
@@ -53,10 +54,11 @@ namespace MartabakProvis.Repositories
                 new
                 {
                     detail.id_detail_transaksi,
-                    detail.xid_menu,
                     detail.jumlah,
-                    detail.harga,
-                    detail.xid_transaksi
+                    detail.harga_sekarang,
+                    detail.total_harga,
+                    detail.id_transaksi,
+                    detail.id_menu
                 }).ToList();
             db.Close();
             return data;

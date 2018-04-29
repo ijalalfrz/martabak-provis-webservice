@@ -17,60 +17,184 @@ namespace MartabakProvis.Controllers
         TransaksiRepo repo = new TransaksiRepo();
         // GET: api/Transaksi
         [HttpGet(Name = "GetAllTransaksi")]
-        public IEnumerable<TransaksiModel> GetAll()
+        public IActionResult GetAll()
         {
-            var data = repo.GetAll();
-            return data;
+            try
+            {
+                var data = repo.GetAll();
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Transaksi/5
         [HttpGet("{id}", Name = "GetById")]
-        public IEnumerable<TransaksiModel> GetById(int id)
+        public IActionResult GetById(int id)
         {
-            var data = repo.GetById(id);
-            yield return data;
+            try
+            {
+                var data = repo.GetById(id);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+            
         }
 
         // GET: api/Transaksi/pembeli/1
         [HttpGet("pembeli/{id}", Name = "GetByIdPembeli")]
-        public IEnumerable<TransaksiModel> GetByIdPembeli(int id)
+        public IActionResult GetByIdPembeli(int id)
         {
-            var data = repo.GetByIdPembeli(id);
-            return data;
+            try
+            {
+                var data = repo.GetByIdPembeli(id);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Transaksi/tanggal/1
         [HttpGet("tanggal/{tanggal}", Name = "GetByTanggal")]
-        public IEnumerable<TransaksiModel> GetByTanggal(string tanggal)
+        public IActionResult GetByTanggal(string tanggal)
         {
-            var data = repo.GetByTanggal(tanggal);
-            return data;
+            try
+            {
+                var data = repo.GetByTanggal(tanggal);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertTransaksi")]
-        public void Post([FromBody]TransaksiModel value)
+        public IActionResult Post([FromBody]TransaksiModel value)
         {
-            repo.Insert(value);
+            try
+            {
+                if (repo.Insert(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
         
         // PUT: api/Transaksi/5
         [HttpPut("{id}", Name = "UpdateTransaksi")]
-        public void Put(int id, [FromBody]TransaksiModel value)
+        public IActionResult Put(int id, [FromBody]TransaksiModel value)
         {
-            var data = repo.GetById(id);
-            var id_part = data.id_transaksi;
-            data = value;
-            data.id_transaksi = id_part;
-            repo.Update(value);
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_transaksi;
+                data = value;
+                data.id_transaksi = id_part;
+
+                if (repo.Update(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var data = repo.GetById(id);
-            repo.Delete(data);
+            try
+            {
+                var data = repo.GetById(id);
+
+                if (repo.Delete(data))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

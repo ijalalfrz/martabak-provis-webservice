@@ -6,18 +6,17 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MartabakProvis.Repositories;
 using MartabakProvis.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/DetailTransaksi"),Authorize]
-    public class DetailTransaksiController : Controller
+    [Route("api/User")]
+    public class UserController : Controller
     {
-        DetailTransaksiRepo repo = new DetailTransaksiRepo();
-        // GET: api/DetailTransaksi
-        [HttpGet(Name = "GetAllDetail")]
-        public IActionResult GetAll()
+        UserRepo repo = new UserRepo();
+        // GET: api/User
+        [HttpGet]
+        public IActionResult Get()
         {
             try
             {
@@ -42,9 +41,9 @@ namespace MartabakProvis.Controllers
             
         }
 
-        // GET: api/DetailTransaksi/5
-        [HttpGet("{id}", Name = "GetDetailById")]
-        public IActionResult GetById(int id)
+        // GET: api/User/5
+        [HttpGet("{id}", Name = "GetUserById")]
+        public IActionResult Get(int id)
         {
             try
             {
@@ -69,74 +68,20 @@ namespace MartabakProvis.Controllers
             
         }
 
-        // GET: api/DetailTransaksi/detail/1
-        [HttpGet("detail/{id}", Name = "GetByIdTransaksi")]
-        public IActionResult GetByIdTransaksi(int id)
+        // POST: api/Menu
+        [HttpPost(Name = "InsertUser")]
+        public IActionResult Insert([FromBody]UserModel value)
         {
             try
             {
-                var data = repo.GetByIdTransaksi(id);
-                IActionResult response;
-
-                if (data != null)
+                if (repo.Insert(value))
                 {
-                    response = Ok(data);
-                }
-                else
-                {
-                    response = NotFound();
-                }
-
-                return response;
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            
-        }
-
-        // GET: api/DetailTransaksi/detail/1
-        [HttpGet("detail/{id}", Name = "GetByIdMenu")]
-        public IActionResult GetByIdMenu(int id)
-        {
-            try
-            {
-                var data = repo.GetByIdMenu(id);
-                IActionResult response;
-
-                if (data != null)
-                {
-                    response = Ok(data);
-                }
-                else
-                {
-                    response = NotFound();
-                }
-
-                return response;
-            }
-            catch
-            {
-                return BadRequest();
-            }
-            
-        }
-
-        // POST: api/DetailTransaksi
-        [HttpPost]
-        public IActionResult Post([FromBody]DetailTransaksiModel value)
-        {
-            try
-            {
-                if (repo.Insert(value)){
                     return Ok();
                 }
                 else
                 {
                     return BadRequest();
                 }
-
             }
             catch
             {
@@ -144,27 +89,25 @@ namespace MartabakProvis.Controllers
             }
             
         }
-        
-        // PUT: api/DetailTransaksi/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]DetailTransaksiModel value)
+
+        // PUT: api/Menu/5
+        [HttpPut("{id}", Name = "UpdateUser")]
+        public IActionResult Update(int id, [FromBody]UserModel value)
         {
             try
             {
                 var data = repo.GetById(id);
-                var id_part = data.id_detail_transaksi;
+                var id_part = data.id_user;
                 data = value;
-                data.id_detail_transaksi = id_part;
+                data.id_user = id_part;
 
-                if (repo.Update(value))
-                {
+                if (repo.Update(value)){
                     return Ok();
                 }
                 else
                 {
                     return BadRequest();
                 }
-
             }
             catch
             {
@@ -172,7 +115,7 @@ namespace MartabakProvis.Controllers
             }
             
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
@@ -180,8 +123,8 @@ namespace MartabakProvis.Controllers
             try
             {
                 var data = repo.GetById(id);
-                
-                if (repo.Delete(data)){
+                if (repo.Delete(data))
+                {
                     return Ok();
                 }
                 else

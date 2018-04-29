@@ -9,52 +9,52 @@ using Dapper.Contrib.Extensions;
 
 namespace MartabakProvis.Repositories
 {
-    public class PembeliRepo : InterRepo<PembeliModel>
+    public class TokoRepo : InterRepo<TokoModel>
     {
         Database db;
 
-        public PembeliRepo()
+        public TokoRepo()
         {
             db = new Database();
         }
 
 
-        public bool Delete(PembeliModel pembeli)
+        public bool Delete(TokoModel pembeli)
         {
             db.Open();
-            var data = db.connection.Delete<PembeliModel>(pembeli);
+            var data = db.connection.Delete<TokoModel>(pembeli);
             db.Close();
             return true;
         }
 
-        public List<PembeliModel> GetAll()
+        public List<TokoModel> GetAll()
         {
             db.Open();
-            var data = db.connection.GetAll<PembeliModel>().ToList();
+            var data = db.connection.GetAll<TokoModel>().ToList();
             db.Close();
             return data;
         }
 
-        public bool Insert(PembeliModel pembeli)
+        public bool Insert(TokoModel pembeli)
         {
             db.Open();
-            var data = db.connection.Insert<PembeliModel>(pembeli);
+            var data = db.connection.Insert<TokoModel>(pembeli);
             db.Close();
             return true;
         }
 
-        public bool Update(PembeliModel pembeli)
+        public bool Update(TokoModel pembeli)
         {
             db.Open();
-            var data = db.connection.Update<PembeliModel>(pembeli);
+            var data = db.connection.Update<TokoModel>(pembeli);
             db.Close();
             return true;
         }
 
-        public PembeliModel GetById(int id)
+        public TokoModel GetById(int id)
         {
             db.Open();
-            var data = db.connection.Get<PembeliModel>(id);
+            var data = db.connection.Get<TokoModel>(id);
             db.Close();
             return data;
         }

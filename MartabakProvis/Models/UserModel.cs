@@ -14,7 +14,7 @@ namespace MartabakProvis.Models
         public string username { get; set; }
         public string password { get; set; }
         public string nama { get; set; }
-        public string no_hp { get; set; }
         public string role { get; set; }
+        public string id_toko { get; set; }
     }
 }

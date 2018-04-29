@@ -17,6 +17,7 @@ namespace MartabakProvis.Models
         public string kategori_menu { get; set; }
         public string gambar { get; set; }
         public decimal harga { get; set; }
+        public string deskripsi { get; set; }
 
        
     }

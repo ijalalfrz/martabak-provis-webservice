@@ -21,137 +21,231 @@ namespace MartabakProvis.Controllers
         [HttpGet(Name = "GetAllMenu")]
         public IActionResult GetAll()
         {
-            var data = repo.GetAll();
-            IActionResult response;
-            
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAll();
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "GetMenuById")]
         public IActionResult Get(int id)
         {
-            var data = repo.GetById(id);
-
-            IActionResult response;
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetById(id);
 
-            return response;
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET : api/Menu/category/Manis
         [HttpGet("category/{kategori}", Name = "GeMenutByCategory")]
         public IActionResult GetByCategory(string kategori)
         {
-            var data = repo.GetByCategory(kategori);
-            IActionResult response;
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetByCategory(kategori);
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
 
-            return response;
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Menu/harga/asc
         [HttpGet("harga/{sort}", Name = "GetAllHarga")]
         public IActionResult GetAllHarga(string sort)
         {
-            
-            var data = repo.GetAllHarga(sort);
-            IActionResult response;
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAllHarga(sort);
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
 
-            return response;
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Menu/nama/asc
         [HttpGet("nama/{sort}", Name = "GetAllNama")]
         public IActionResult GetAllNama(string sort)
         {
-            var data = repo.GetAllNama(sort);
-            IActionResult response;
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAllNama(sort);
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
 
-            return response;
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET : api/Menu/size/Medium
         [HttpGet("size/{uk}", Name = "GetBySize")]
         public IActionResult GetBySize(string uk)
         {
-            var data = repo.GetBySize(uk);
-            IActionResult response;
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetBySize(uk);
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
 
-            return response;
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]
-        public void Insert([FromBody]MenuModel value)
+        public IActionResult Insert([FromBody]MenuModel value)
         {
-            repo.Insert(value);
+            try
+            {
+                if (repo.Insert(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // PUT: api/Menu/5
         [HttpPut("{id}", Name = "Update")]
-        public void Update(int id, [FromBody]MenuModel value)
+        public IActionResult Update(int id, [FromBody]MenuModel value)
         {
-            var data = repo.GetById(id);
-            var id_part = data.id_menu;
-            data = value;
-            data.id_menu = id_part;
-            repo.Update(value);
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_menu;
+                data = value;
+                data.id_menu = id_part;
+
+                if (repo.Update(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var data = repo.GetById(id);
-            repo.Delete(data);
+            try
+            {
+                var data = repo.GetById(id);
+
+                if (repo.Delete(data))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

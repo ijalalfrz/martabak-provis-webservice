@@ -18,64 +18,126 @@ namespace MartabakProvis.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var data = repo.GetAll();
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAll();
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "GetUserById")]
         public IActionResult Get(int id)
         {
-            var data = repo.GetById(id);
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetById(id);
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // POST: api/Menu
         [HttpPost(Name = "InsertUser")]
-        public void Insert([FromBody]UserModel value)
+        public IActionResult Insert([FromBody]UserModel value)
         {
-            repo.Insert(value);
+            try
+            {
+                if (repo.Insert(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // PUT: api/Menu/5
         [HttpPut("{id}", Name = "UpdateUser")]
-        public void Update(int id, [FromBody]UserModel value)
+        public IActionResult Update(int id, [FromBody]UserModel value)
         {
-            var data = repo.GetById(id);
-            var id_part = data.id_user;
-            data = value;
-            data.id_user = id_part;
-            repo.Update(value);
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_user;
+                data = value;
+                data.id_user = id_part;
+
+                if (repo.Update(value)){
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var data = repo.GetById(id);
-            repo.Delete(data);
+            try
+            {
+                var data = repo.GetById(id);
+                if (repo.Delete(data))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

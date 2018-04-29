@@ -19,64 +19,127 @@ namespace MartabakProvis.Controllers
         [HttpGet(Name = "GetAllToko")]
         public IActionResult GetAllToko()
         {
-            var data = repo.GetAll();
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAll();
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/Toko/5
         [HttpGet("{id}", Name = "GetToko")]
         public IActionResult GetToko(int id)
         {
-            var data = repo.GetById(id);
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetById(id);
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // POST: api/Toko
         [HttpPost(Name = "InsertToko")]
-        public void Insert([FromBody]TokoModel value)
+        public IActionResult Insert([FromBody]TokoModel value)
         {
-            repo.Insert(value);
+            try
+            {
+                if (repo.Insert(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // PUT: api/Toko/5
         [HttpPut("{id}", Name = "UpdateToko")]
-        public void Put(int id, [FromBody]TokoModel value)
+        public IActionResult Put(int id, [FromBody]TokoModel value)
         {
-            var data = repo.GetById(id);
-            var id_part = data.id_toko;
-            data = value;
-            data.id_toko = id_part;
-            repo.Update(value);
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_toko;
+                data = value;
+                data.id_toko = id_part;
+
+                if (repo.Update(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var data = repo.GetById(id);
-            repo.Delete(data);
+            try
+            {
+                var data = repo.GetById(id);
+
+                if (repo.Delete(data))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

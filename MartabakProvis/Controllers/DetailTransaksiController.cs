@@ -19,102 +19,182 @@ namespace MartabakProvis.Controllers
         [HttpGet(Name = "GetAllDetail")]
         public IActionResult GetAll()
         {
-            var data = repo.GetAll();
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetAll();
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/DetailTransaksi/5
         [HttpGet("{id}", Name = "GetDetailById")]
         public IActionResult GetById(int id)
         {
-            var data = repo.GetById(id);
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetById(id);
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/DetailTransaksi/detail/1
         [HttpGet("detail/{id}", Name = "GetByIdTransaksi")]
         public IActionResult GetByIdTransaksi(int id)
         {
-            var data = repo.GetByIdTransaksi(id);
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetByIdTransaksi(id);
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // GET: api/DetailTransaksi/detail/1
         [HttpGet("detail/{id}", Name = "GetByIdMenu")]
         public IActionResult GetByIdMenu(int id)
         {
-            var data = repo.GetByIdMenu(id);
-            IActionResult response;
-
-            if (data != null)
+            try
             {
-                response = Ok(data);
-            }
-            else
-            {
-                response = NotFound();
-            }
+                var data = repo.GetByIdMenu(id);
+                IActionResult response;
 
-            return response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
 
         // POST: api/DetailTransaksi
         [HttpPost]
-        public void Post([FromBody]DetailTransaksiModel value)
+        public IActionResult Post([FromBody]DetailTransaksiModel value)
         {
-            repo.Insert(value);
+            try
+            {
+                if (repo.Insert(value)){
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
         
         // PUT: api/DetailTransaksi/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]DetailTransaksiModel value)
+        public IActionResult Put(int id, [FromBody]DetailTransaksiModel value)
         {
-            var data = repo.GetById(id);
-            var id_part = data.id_detail_transaksi;
-            data = value;
-            data.id_detail_transaksi = id_part;
-            repo.Update(value);
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_detail_transaksi;
+                data = value;
+                data.id_detail_transaksi = id_part;
+
+                if (repo.Update(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var data = repo.GetById(id);
-            repo.Delete(data);
+            try
+            {
+                var data = repo.GetById(id);
+                
+                if (repo.Delete(data)){
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch
+            {
+                return BadRequest();
+            }
+            
         }
     }
 }

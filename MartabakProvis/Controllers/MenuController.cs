@@ -21,15 +21,16 @@ namespace MartabakProvis.Controllers
         [HttpGet(Name = "GetAllMenu")]
         public IActionResult GetAll()
         {
-            IActionResult response;
             var data = repo.GetAll();
+            IActionResult response;
+            
             if (data != null)
             {
                 response = Ok(data);
             }
             else
             {
-                response = NotFound(data);
+                response = NotFound();
             }
 
             return response;
@@ -37,43 +38,94 @@ namespace MartabakProvis.Controllers
 
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "GetMenuById")]
-        public MenuModel Get(int id)
+        public IActionResult Get(int id)
         {
             var data = repo.GetById(id);
-            return data;
+
+            IActionResult response;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET : api/Menu/category/Manis
         [HttpGet("category/{kategori}", Name = "GeMenutByCategory")]
-        public IEnumerable<MenuModel> GetByCategory(string kategori)
+        public IActionResult GetByCategory(string kategori)
         {
             var data = repo.GetByCategory(kategori);
-            return data;
+            IActionResult response;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Menu/harga/asc
         [HttpGet("harga/{sort}", Name = "GetAllHarga")]
-        public IEnumerable<MenuModel> GetAllHarga(string sort)
+        public IActionResult GetAllHarga(string sort)
         {
-
+            
             var data = repo.GetAllHarga(sort);
-            return data;
+            IActionResult response;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Menu/nama/asc
         [HttpGet("nama/{sort}", Name = "GetAllNama")]
-        public IEnumerable<MenuModel> GetAllNama(string sort)
+        public IActionResult GetAllNama(string sort)
         {
             var data = repo.GetAllNama(sort);
-            return data;
+            IActionResult response;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET : api/Menu/size/Medium
         [HttpGet("size/{uk}", Name = "GetBySize")]
-        public IEnumerable<MenuModel> GetBySize(string uk)
+        public IActionResult GetBySize(string uk)
         {
             var data = repo.GetBySize(uk);
-            return data;
+            IActionResult response;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // POST: api/Menu

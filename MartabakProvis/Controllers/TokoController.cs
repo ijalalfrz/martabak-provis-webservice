@@ -17,18 +17,40 @@ namespace MartabakProvis.Controllers
 
         // GET: api/Toko
         [HttpGet(Name = "GetAllToko")]
-        public IEnumerable<TokoModel> GetAllToko()
+        public IActionResult GetAllToko()
         {
             var data = repo.GetAll();
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Toko/5
         [HttpGet("{id}", Name = "GetToko")]
-        public TokoModel GetToko(int id)
+        public IActionResult GetToko(int id)
         {
             var data = repo.GetById(id);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // POST: api/Toko

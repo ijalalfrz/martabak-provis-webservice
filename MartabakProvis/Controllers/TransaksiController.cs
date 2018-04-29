@@ -17,34 +17,78 @@ namespace MartabakProvis.Controllers
         TransaksiRepo repo = new TransaksiRepo();
         // GET: api/Transaksi
         [HttpGet(Name = "GetAllTransaksi")]
-        public IEnumerable<TransaksiModel> GetAll()
+        public IActionResult GetAll()
         {
             var data = repo.GetAll();
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Transaksi/5
         [HttpGet("{id}", Name = "GetById")]
-        public IEnumerable<TransaksiModel> GetById(int id)
+        public IActionResult GetById(int id)
         {
             var data = repo.GetById(id);
-            yield return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Transaksi/pembeli/1
         [HttpGet("pembeli/{id}", Name = "GetByIdPembeli")]
-        public IEnumerable<TransaksiModel> GetByIdPembeli(int id)
+        public IActionResult GetByIdPembeli(int id)
         {
             var data = repo.GetByIdPembeli(id);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/Transaksi/tanggal/1
         [HttpGet("tanggal/{tanggal}", Name = "GetByTanggal")]
-        public IEnumerable<TransaksiModel> GetByTanggal(string tanggal)
+        public IActionResult GetByTanggal(string tanggal)
         {
             var data = repo.GetByTanggal(tanggal);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // POST: api/Transaksi

@@ -16,18 +16,40 @@ namespace MartabakProvis.Controllers
         UserRepo repo = new UserRepo();
         // GET: api/User
         [HttpGet]
-        public IEnumerable<UserModel> Get()
+        public IActionResult Get()
         {
             var data = repo.GetAll();
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "GetUserById")]
-        public UserModel Get(int id)
+        public IActionResult Get(int id)
         {
             var data = repo.GetById(id);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // POST: api/Menu

@@ -17,34 +17,78 @@ namespace MartabakProvis.Controllers
         DetailTransaksiRepo repo = new DetailTransaksiRepo();
         // GET: api/DetailTransaksi
         [HttpGet(Name = "GetAllDetail")]
-        public IEnumerable<DetailTransaksiModel> GetAll()
+        public IActionResult GetAll()
         {
             var data = repo.GetAll();
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/DetailTransaksi/5
         [HttpGet("{id}", Name = "GetDetailById")]
-        public IEnumerable<DetailTransaksiModel> GetById(int id)
+        public IActionResult GetById(int id)
         {
             var data = repo.GetById(id);
-            yield return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/DetailTransaksi/detail/1
         [HttpGet("detail/{id}", Name = "GetByIdTransaksi")]
-        public IEnumerable<DetailTransaksiModel> GetByIdTransaksi(int id)
+        public IActionResult GetByIdTransaksi(int id)
         {
             var data = repo.GetByIdTransaksi(id);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // GET: api/DetailTransaksi/detail/1
         [HttpGet("detail/{id}", Name = "GetByIdMenu")]
-        public IEnumerable<DetailTransaksiModel> GetByIdMenu(int id)
+        public IActionResult GetByIdMenu(int id)
         {
             var data = repo.GetByIdMenu(id);
-            return data;
+            IActionResult response;
+
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound();
+            }
+
+            return response;
         }
 
         // POST: api/DetailTransaksi

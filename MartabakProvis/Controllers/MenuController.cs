@@ -19,10 +19,20 @@ namespace MartabakProvis.Controllers
 
         // GET: api/Menu
         [HttpGet(Name = "GetAllMenu")]
-        public IEnumerable<MenuModel> GetAll()
+        public IActionResult GetAll()
         {
+            IActionResult response;
             var data = repo.GetAll();
-            return data;
+            if (data != null)
+            {
+                response = Ok(data);
+            }
+            else
+            {
+                response = NotFound(data);
+            }
+
+            return response;
         }
 
         // GET: api/Menu/5

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -45,12 +47,17 @@ namespace MartabakProvis
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
+                    builder => builder
+                      .WithOrigins("http://localhost:4200", "http://www.myclientserver.com")
+                      .WithHeaders("accept", "content-type", "origin")
+                      .AllowAnyOrigin()
                       .AllowAnyMethod()
                       .AllowAnyHeader()
                       .AllowCredentials()
+                     
                 .Build());
             });
+
 
             services.AddMvc();
         }
@@ -63,8 +70,9 @@ namespace MartabakProvis
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStaticFiles();
             app.UseAuthentication();
-
+            app.UseCors("CorsPolicy");
             app.UseMvc();
         }
     }

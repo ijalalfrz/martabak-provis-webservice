@@ -1,4 +1,5 @@
 ﻿using Dapper.Contrib.Extensions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,5 +21,20 @@ namespace MartabakProvis.Models
         public string deskripsi { get; set; }
 
        
+    }
+
+    public class MenuViewModel
+    {
+
+        [Key]
+        public int id_menu { get; set; }
+        public string topping { get; set; }
+        public string size_menu { get; set; }
+        public string kategori_menu { get; set; }
+        public IFormFile gambar { get; set; }
+        public decimal harga { get; set; }
+        public string deskripsi { get; set; }
+
+
     }
 }

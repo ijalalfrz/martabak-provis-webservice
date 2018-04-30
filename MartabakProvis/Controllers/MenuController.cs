@@ -178,25 +178,40 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]
-        public async Task<IActionResult> Insert([FromBody]MenuModel value, IFormFile file)
+        public async Task<IActionResult> Insert([FromForm]MenuViewModel value)
         {
             try
             {
-                
 
-                if (repo.Insert(value))
+                string pathUpload = await UploadFile(value.gambar);
+                if (pathUpload!="err")
                 {
-                    await UploadFile(file);
-                    return Ok();
+                    MenuModel item = new MenuModel();
+                    item.gambar = pathUpload;
+                    item.deskripsi = value.deskripsi;
+                    item.harga = value.harga;
+                    item.kategori_menu = value.kategori_menu;
+                    item.size_menu = value.size_menu;
+                    item.topping = value.topping;
+                    if (repo.Insert(item))
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
                 }
                 else
                 {
                     return BadRequest();
                 }
+
+                
             }
-            catch
+            catch(Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
             
         }
@@ -278,21 +293,21 @@ namespace MartabakProvis.Controllers
             return Ok(new { count = files.Count, size, filePath });
         }
         
-        public async Task<bool> UploadFile(IFormFile file)
+        private async Task<string> UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return false;
-
+                return "err";
+            string filename = DateTime.Now.Ticks.ToString() + "." + Path.GetExtension(file.FileName);
             var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot",
-                        file.FileName);
+                        Directory.GetCurrentDirectory(), "wwwroot/uploads",
+                        filename);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
 
-            return true;
+            return "uploads/"+filename;
         }
     }
 }

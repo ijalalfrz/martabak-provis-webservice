@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Menu"),Authorize]
+    [Route("api/Menu")]
 
     public class MenuController : Controller
     {

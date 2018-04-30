@@ -18,35 +18,9 @@ namespace MartabakProvis.Controllers
     {
         MenuRepo repo = new MenuRepo();
 
+     
         // GET: api/Menu
-        [HttpGet(Name = "GetAllMenu")]
-        public IActionResult GetAll()
-        {
-            try
-            {
-                var data = repo.GetAll();
-                IActionResult response;
-
-                if (data != null)
-                {
-                    response = Ok(data);
-                }
-                else
-                {
-                    response = NotFound();
-                }
-
-                return response;
-            }
-            catch
-            {
-                return BadRequest();
-            }
-
-        }
-
-        // GET: api/Menu
-        [HttpGet("price/", Name = "GetAllWithPrice")]
+        [HttpGet(Name = "GetAllWithPrice")]
         public IActionResult GetAllWithPrice()
         {
             try

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MartabakProvis.Models
 {
-    [Table("t_menu_2")]
+    [Table("t_menu")]
     public class MenuModel
     {
  

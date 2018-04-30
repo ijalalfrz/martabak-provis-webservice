@@ -40,7 +40,7 @@ namespace MartabakProvis.Repositories
         public List<object> GetAllWithPrice()
         {
             db.Open();
-            var selectSql = "SELECT t_menu_2.*, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_menu_2.id_menu = t_size.id_menu WHERE t_size.size = 'Medium'";
+            var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_menu.id_menu = t_size.id_menu WHERE t_size.size = 'Medium'";
             var data = db.connection.Query<object>(selectSql).ToList();
 
             db.Close();
@@ -68,7 +68,7 @@ namespace MartabakProvis.Repositories
         public List<object> GetByCategory(string kategori)
         {
             db.Open();
-            var selectSql = "SELECT t_menu_2.*, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_size.id_menu = t_menu_2.id_menu WHERE kategori_menu = '" + kategori + "' AND t_size.size = 'Medium'";
+            var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE kategori_menu = '" + kategori + "' AND t_size.size = 'Medium'";
 
             var data = db.connection.Query<object>(selectSql, new
             {
@@ -81,7 +81,7 @@ namespace MartabakProvis.Repositories
         public List<object> GetPriceById(int id)
         {
             db.Open();
-            var selectSql = "SELECT t_menu_2.*, t_size.size, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_size.id_menu = t_menu_2.id_menu WHERE t_menu_2.id_menu=" + id ;
+            var selectSql = "SELECT t_menu.*, t_size.size, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE t_menu.id_menu=" + id ;
 
             var data = db.connection.Query<object>(selectSql, new
             {

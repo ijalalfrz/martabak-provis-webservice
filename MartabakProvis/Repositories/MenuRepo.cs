@@ -65,12 +65,12 @@ namespace MartabakProvis.Repositories
             return SortedList;
         }
 
-        public List<MenuModel> GetByCategory(string kategori)
+        public List<object> GetByCategory(string kategori)
         {
             db.Open();
-            var selectSql = "SELECT * FROM t_menu_2 WHERE kategori_menu = '" + kategori +"'";
+            var selectSql = "SELECT t_menu_2.*, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_size.id_menu = t_menu_2.id_menu WHERE kategori_menu = '" + kategori + "' AND t_size.size = 'Medium'";
 
-            var data = db.connection.Query<MenuModel>(selectSql, new
+            var data = db.connection.Query<object>(selectSql, new
             {
                 kategori_menu = kategori
             }).ToList();

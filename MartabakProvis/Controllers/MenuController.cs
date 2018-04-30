@@ -45,6 +45,33 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Menu
+        [HttpGet("price/", Name = "GetAllWithPrice")]
+        public IActionResult GetAllWithPrice()
+        {
+            try
+            {
+                var data = repo.GetAllWithPrice();
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "GetMenuById")]
         public IActionResult Get(int id)
@@ -91,9 +118,12 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(new
+                {
+                    message = e.Message
+                });
             }
 
         }

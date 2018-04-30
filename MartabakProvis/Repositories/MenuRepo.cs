@@ -37,6 +37,16 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
+        public List<object> GetAllWithPrice()
+        {
+            db.Open();
+            var selectSql = "SELECT t_menu_2.*, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_menu_2.id_menu = t_size.id_menu WHERE t_size.size = 'Medium'";
+            var data = db.connection.Query<object>(selectSql).ToList();
+
+            db.Close();
+            return data;
+        }
+
         public List<MenuModel> GetAllByTopping(string sort)
         {
             db.Open();
@@ -58,8 +68,8 @@ namespace MartabakProvis.Repositories
         public List<MenuModel> GetByCategory(string kategori)
         {
             db.Open();
-            var selectSql = "SELECT * FROM t_menu_2 WHERE kategori_menu = @kategori";
-            MenuModel menu = new MenuModel();
+            var selectSql = "SELECT * FROM t_menu_2 WHERE kategori_menu = '" + kategori +"'";
+
             var data = db.connection.Query<MenuModel>(selectSql, new
             {
                 kategori_menu = kategori

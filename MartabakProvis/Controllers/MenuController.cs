@@ -178,12 +178,15 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]
-        public IActionResult Insert([FromBody]MenuModel value)
+        public async Task<IActionResult> Insert([FromBody]MenuModel value, IFormFile file)
         {
             try
             {
+                
+
                 if (repo.Insert(value))
                 {
+                    await UploadFile(file);
                     return Ok();
                 }
                 else
@@ -274,12 +277,11 @@ namespace MartabakProvis.Controllers
 
             return Ok(new { count = files.Count, size, filePath });
         }
-
-        [HttpPost("Upload")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        
+        public async Task<bool> UploadFile(IFormFile file)
         {
             if (file == null || file.Length == 0)
-                return Content("file not selected");
+                return false;
 
             var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot",
@@ -290,7 +292,7 @@ namespace MartabakProvis.Controllers
                 await file.CopyToAsync(stream);
             }
 
-            return Ok(new { path });
+            return true;
         }
     }
 }

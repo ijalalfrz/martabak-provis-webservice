@@ -72,8 +72,62 @@ namespace MartabakProvis.Controllers
             
         }
 
+        // GET: api/Menu/topping/
+        [HttpGet("topping", Name = "GetAllByTopping")]
+        public IActionResult GetMenuByTopping()
+        {
+            try
+            {
+                var data = repo.GetAllByTopping();
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
+        // GET: api/Menu/Coklat kacang keju/Medium
+        [HttpGet("{topping}/{size}", Name = "GetByToppingAndSize")]
+        public IActionResult GetByToppingAndSize(string topping, string size)
+        {
+            try
+            {
+                var data = repo.GetByToppingAndSize(topping, size);
+                IActionResult response;
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+                return response;
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new {
+                    message = e.Message
+                });
+            }
+
+        }
+
+
+
         // GET : api/Menu/category/Manis
-        [HttpGet("category/{kategori}", Name = "GeMenutByCategory")]
+        [HttpGet("category/{kategori}", Name = "GetMenuByCategory")]
         public IActionResult GetByCategory(string kategori)
         {
             try
@@ -250,32 +304,6 @@ namespace MartabakProvis.Controllers
                 return BadRequest();
             }
             
-        }
-
-        [HttpPost("UploadFiles")]
-        public async Task<IActionResult> Post(List<IFormFile> files)
-        {
-            long size = files.Sum(f => f.Length);
-
-            // full path to file in temp location
-            
-            var filePath = Path.GetTempFileName();
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length > 0)
-                {
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await formFile.CopyToAsync(stream);
-                    }
-                }
-            }
-
-            // process uploaded files
-            // Don't rely on or trust the FileName property without validation.
-
-            return Ok(new { count = files.Count, size, filePath });
         }
         
         public async Task<bool> UploadFile(IFormFile file)

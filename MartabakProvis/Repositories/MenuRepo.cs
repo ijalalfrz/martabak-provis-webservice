@@ -143,6 +143,30 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
+        public List<MenuModel> GetAllByTopping()
+        {
+            db.Open();
+            var selectSql = "SELECT topping FROM t_menu GROUP BY topping";
+            var data = db.connection.Query<MenuModel>(selectSql).ToList();
+            db.Close();
+            return data;
+        }
+
+        public MenuModel GetByToppingAndSize(string topping, string size)
+        {
+            db.Open();
+            var selectSql = "SELECT * FROM t_menu WHERE size_menu = @size AND topping = @topping";
+            var data = db.connection.QuerySingle<MenuModel>(selectSql, new
+            {
+                size = size,
+                topping = topping
+                
+            });
+            db.Close();
+
+            return data;
+        }
+ 
 
         public bool Insert(MenuModel menu)
         {

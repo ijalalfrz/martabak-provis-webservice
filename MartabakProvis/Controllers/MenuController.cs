@@ -255,6 +255,7 @@ namespace MartabakProvis.Controllers
             long size = files.Sum(f => f.Length);
 
             // full path to file in temp location
+            
             var filePath = Path.GetTempFileName();
 
             foreach (var formFile in files)
@@ -272,6 +273,24 @@ namespace MartabakProvis.Controllers
             // Don't rely on or trust the FileName property without validation.
 
             return Ok(new { count = files.Count, size, filePath });
+        }
+
+        [HttpPost("Upload")]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+
+            var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        file.FileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return Ok(new { path });
         }
     }
 }

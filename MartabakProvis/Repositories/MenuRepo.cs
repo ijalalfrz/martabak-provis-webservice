@@ -78,6 +78,19 @@ namespace MartabakProvis.Repositories
             return data;
         }
 
+        public List<object> GetPriceById(int id)
+        {
+            db.Open();
+            var selectSql = "SELECT t_menu_2.*, t_size.size, t_size.harga FROM t_menu_2 INNER JOIN t_size ON t_size.id_menu = t_menu_2.id_menu WHERE t_menu_2.id_menu=" + id ;
+
+            var data = db.connection.Query<object>(selectSql, new
+            {
+                id_menu = id
+            }).ToList();
+            db.Close();
+            return data;
+        }
+
         public bool Insert(MenuModel menu)
         {
             db.Open();

@@ -72,6 +72,33 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Menu
+        [HttpGet("price/{id}", Name = "GetPriceById")]
+        public IActionResult GetPriceById(int id)
+        {
+            try
+            {
+                var data = repo.GetPriceById(id);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch
+            {
+                return BadRequest();
+            }
+
+        }
+
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "GetMenuById")]
         public IActionResult Get(int id)

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using MartabakProvis.Repositories;
 using MartabakProvis.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
 
 namespace MartabakProvis.Controllers
 {
@@ -177,12 +178,15 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]
-        public IActionResult Insert([FromBody]MenuModel value)
+        public async Task<IActionResult> Insert([FromBody]MenuModel value, IFormFile file)
         {
             try
             {
+                
+
                 if (repo.Insert(value))
                 {
+                    await UploadFile(file);
                     return Ok();
                 }
                 else
@@ -246,6 +250,49 @@ namespace MartabakProvis.Controllers
                 return BadRequest();
             }
             
+        }
+
+        [HttpPost("UploadFiles")]
+        public async Task<IActionResult> Post(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+
+            // full path to file in temp location
+            
+            var filePath = Path.GetTempFileName();
+
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+
+            return Ok(new { count = files.Count, size, filePath });
+        }
+        
+        public async Task<bool> UploadFile(IFormFile file)
+        {
+            if (file == null || file.Length == 0)
+                return false;
+
+            var path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot",
+                        file.FileName);
+
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return true;
         }
     }
 }

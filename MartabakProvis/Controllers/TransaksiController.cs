@@ -124,14 +124,16 @@ namespace MartabakProvis.Controllers
 
         }
 
+
         // POST: api/Transaksi
-        [HttpPost(Name = "InsertTransaksi")]
-        public IActionResult Post([FromBody]TransaksiModel value)
+        [HttpPost(Name = "InsertAllTransaksi")]
+        public IActionResult Post2([FromBody]TransaksiSemuaModel value)
         {
             try
             {
-                if (repo.Insert(value))
+                if (repo.InsertAll(value))
                 {
+             
                     return Ok();
                 }
                 else
@@ -145,7 +147,9 @@ namespace MartabakProvis.Controllers
                 return BadRequest(e.Message);
             }
         }
-        
+
+
+
         // PUT: api/Transaksi/5
         [HttpPut("{id}", Name = "UpdateTransaksi")]
         public IActionResult Put(int id, [FromBody]TransaksiModel value)
@@ -180,6 +184,7 @@ namespace MartabakProvis.Controllers
             try
             {
                 var data = repo.GetById(id);
+                
 
                 if (repo.Delete(data))
                 {

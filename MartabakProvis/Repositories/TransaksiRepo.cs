@@ -118,6 +118,25 @@ namespace MartabakProvis.Repositories
             
         }
 
+        public bool InsertAll(TransaksiSemuaModel value)
+        {
+            try
+            {
+                db.Open();
+                var dataTransaksi = db.connection.Insert<TransaksiModel>(value.parent);
+                foreach(var list in value.child)
+                {
+                    var dataDetail = db.connection.Insert<DetailTransaksiModel>(list);
+                }
+                db.Close();
+
+                return true;
+            }catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool Update(TransaksiModel transaksi)
         {
             try

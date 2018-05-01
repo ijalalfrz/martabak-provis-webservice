@@ -35,17 +35,19 @@ namespace MartabakProvis.Controllers
         {
             IActionResult response = Unauthorized();
             var user = Authenticate(login);
-
+            
             if (user != null)
             {
                 var tokenString = BuildToken(user);
                 user.password = "";
                 response = Ok(new {
                     token = tokenString,
-                    data = new
-                    {
-                        user = user
-                    }
+                    user.id_toko,
+                    user.id_user,
+                    user.nama,
+                    user.password,
+                    user.role,
+                    user.username
                 });
             }
 

@@ -128,7 +128,7 @@ namespace MartabakProvis.Controllers
             }
 
         }
-
+        
         // GET: api/Menu/topping/asc
         [HttpGet("topping/{sort}", Name = "GetAllNama")]
         public IActionResult GetAllNama(string sort)

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MartabakProvis.Models;
+using MartabakProvis.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
@@ -28,6 +30,33 @@ namespace MartabakProvis.Helper
 
             // return hexadecimal string
             return returnValue.ToString();
+        }
+
+        public static void initAdmin()
+        {
+            Database db = new Database();
+            UserModel usr = new UserModel();
+            UserRepo repo = new UserRepo();
+
+            if (repo.GetByUsername("toko1") == null)
+            {
+                usr.nama = "Admin";
+                usr.username = "toko1";
+                usr.role = "admin";
+                usr.id_toko = null;
+                usr.password = GetSHA1HashData("mamen123");
+                try
+                {
+                    if (!repo.Insert(usr))
+                    {
+                        throw new Exception("error");
+                    }
+                }catch(Exception e)
+                {
+
+                }
+              
+            }
         }
 
         public static bool ValidateSHA1HashData(string inputData, string storedHashData)

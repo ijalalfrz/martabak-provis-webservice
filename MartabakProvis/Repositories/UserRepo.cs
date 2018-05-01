@@ -53,12 +53,13 @@ namespace MartabakProvis.Repositories
 
         public UserModel GetByUsername(string uname)
         {
+
             try
             {
                 db.Open();
                 var selectSql = "SELECT * FROM t_user WHERE username = @username";
                 UserModel menu = new UserModel();
-                var data = db.connection.QuerySingle<UserModel>(selectSql, new
+                var data = db.connection.QuerySingleOrDefault<UserModel>(selectSql, new
                 {
                     username = uname
                 });
@@ -85,7 +86,6 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-            
         }
 
         public bool Update(UserModel user)

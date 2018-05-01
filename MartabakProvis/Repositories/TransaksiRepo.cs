@@ -72,15 +72,7 @@ namespace MartabakProvis.Repositories
                 db.Open();
                 var sql = "SELECT * FROM t_transaksi Where tanggal = '" + tanggal + "'";
                 TransaksiModel trs = new TransaksiModel();
-                var data = db.connection.Query<TransaksiModel>(sql,
-                    new
-                    {
-                        trs.id_transaksi,
-                        trs.tanggal,
-                        trs.jumlah_beli,
-                        trs.total_harga,
-                        trs.id_toko
-                    }).ToList();
+                var data = db.connection.Query<TransaksiModel>(sql).ToList();
                 db.Close();
                 return data;
             }

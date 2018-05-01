@@ -125,7 +125,7 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var selectSql = "SELECT t_menu.*, t_size.size, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE t_menu.id_menu=" + id;
+                var selectSql = "SELECT t_menu.*,t_size.id_size, t_size.size, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE t_menu.id_menu=" + id;
 
                 var data = db.connection.Query<object>(selectSql, new
                 {

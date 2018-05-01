@@ -17,5 +17,9 @@ namespace MartabakProvis.Models
         public int id_toko { get; set; }
         public string nama_pembeli { get; set; }
         public string status { get; set; }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5963a68f813ec42cf8f6fdc24dd4f39c0fd495f5
     }
 }

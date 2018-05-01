@@ -21,42 +21,83 @@ namespace MartabakProvis.Repositories
 
         public bool Insert(SizeModel size)
         {
-            db.Open();
-            var data = db.connection.Insert<SizeModel>(size);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Insert<SizeModel>(size);
+                db.Close();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
         public bool Update(SizeModel size)
         {
-            db.Open();
-            var data = db.connection.Update<SizeModel>(size);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Update<SizeModel>(size);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
 
         }
         public bool Delete(SizeModel size)
         {
-            db.Open();
-            var data = db.connection.Delete<SizeModel>(size);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Delete<SizeModel>(size);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
 
         }
         public SizeModel GetById(int id)
         {
-            db.Open();
-            var data = db.connection.Get<SizeModel>(id);
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var data = db.connection.Get<SizeModel>(id);
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
 
         }
         public List<SizeModel> GetAll()
         {
-            db.Open();
-            var data = db.connection.GetAll<SizeModel>().ToList();
+            try
+            {
+                db.Open();
+                var data = db.connection.GetAll<SizeModel>().ToList();
 
-            db.Close();
-            return data;
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
 
         }
     }

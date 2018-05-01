@@ -35,11 +35,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/Toko/5
@@ -62,11 +62,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // POST: api/Toko
@@ -84,11 +84,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // PUT: api/Toko/5
@@ -111,11 +111,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // DELETE: api/ApiWithActions/5
@@ -135,11 +135,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
     }
 }

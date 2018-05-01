@@ -34,11 +34,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/User/5
@@ -61,11 +61,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // POST: api/Menu
@@ -83,11 +83,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // PUT: api/Menu/5
@@ -109,11 +109,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // DELETE: api/ApiWithActions/5
@@ -133,11 +133,11 @@ namespace MartabakProvis.Controllers
                 }
 
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
     }
 }

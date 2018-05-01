@@ -21,42 +21,82 @@ namespace MartabakProvis.Repositories
 
         public bool Delete(TokoModel pembeli)
         {
-            db.Open();
-            var data = db.connection.Delete<TokoModel>(pembeli);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Delete<TokoModel>(pembeli);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
 
         public List<TokoModel> GetAll()
         {
-            db.Open();
-            var data = db.connection.GetAll<TokoModel>().ToList();
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var data = db.connection.GetAll<TokoModel>().ToList();
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public bool Insert(TokoModel pembeli)
         {
-            db.Open();
-            var data = db.connection.Insert<TokoModel>(pembeli);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Insert<TokoModel>(pembeli);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
         }
 
         public bool Update(TokoModel pembeli)
         {
-            db.Open();
-            var data = db.connection.Update<TokoModel>(pembeli);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Update<TokoModel>(pembeli);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+           
         }
 
         public TokoModel GetById(int id)
         {
-            db.Open();
-            var data = db.connection.Get<TokoModel>(id);
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var data = db.connection.Get<TokoModel>(id);
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
     }
 }

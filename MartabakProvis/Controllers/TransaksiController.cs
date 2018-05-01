@@ -35,11 +35,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/Transaksi/5
@@ -62,12 +62,12 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
-            
+
         }
 
         // GET: api/Transaksi/pembeli/1
@@ -90,11 +90,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/Transaksi/tanggal/1
@@ -117,11 +117,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // POST: api/Transaksi
@@ -140,9 +140,9 @@ namespace MartabakProvis.Controllers
                 }
 
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
         
@@ -166,11 +166,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
         
         // DELETE: api/ApiWithActions/5
@@ -190,11 +190,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
     }
 }

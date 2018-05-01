@@ -36,9 +36,9 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
 

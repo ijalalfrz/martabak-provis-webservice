@@ -2,29 +2,45 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MartabakProvis.Interface;
-using MartabakProvis.Models;
 using MartabakProvis.Helper;
+using MartabakProvis.Models;
+using MartabakProvis.Interface;
 using Dapper.Contrib.Extensions;
+using Dapper;
 
 namespace MartabakProvis.Repositories
 {
-    public class TokoRepo : InterRepo<TokoModel>
+    public class SizeRepo : InterRepo<SizeModel>
     {
         Database db;
 
-        public TokoRepo()
+        public SizeRepo()
         {
             db = new Database();
         }
 
-
-        public bool Delete(TokoModel pembeli)
+        public bool Insert(SizeModel size)
         {
             try
             {
                 db.Open();
-                var data = db.connection.Delete<TokoModel>(pembeli);
+                var data = db.connection.Insert<SizeModel>(size);
+                db.Close();
+                return true;
+
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
+        }
+        public bool Update(SizeModel size)
+        {
+            try
+            {
+                db.Open();
+                var data = db.connection.Update<SizeModel>(size);
                 db.Close();
                 return true;
             }
@@ -33,14 +49,30 @@ namespace MartabakProvis.Repositories
                 return false;
             }
             
-        }
 
-        public List<TokoModel> GetAll()
+        }
+        public bool Delete(SizeModel size)
         {
             try
             {
                 db.Open();
-                var data = db.connection.GetAll<TokoModel>().ToList();
+                var data = db.connection.Delete<SizeModel>(size);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
+
+        }
+        public SizeModel GetById(int id)
+        {
+            try
+            {
+                db.Open();
+                var data = db.connection.Get<SizeModel>(id);
                 db.Close();
                 return data;
             }
@@ -49,46 +81,15 @@ namespace MartabakProvis.Repositories
                 return null;
             }
             
-        }
 
-        public bool Insert(TokoModel pembeli)
+        }
+        public List<SizeModel> GetAll()
         {
             try
             {
                 db.Open();
-                var data = db.connection.Insert<TokoModel>(pembeli);
-                db.Close();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-           
-        }
+                var data = db.connection.GetAll<SizeModel>().ToList();
 
-        public bool Update(TokoModel pembeli)
-        {
-            try
-            {
-                db.Open();
-                var data = db.connection.Update<TokoModel>(pembeli);
-                db.Close();
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-           
-        }
-
-        public TokoModel GetById(int id)
-        {
-            try
-            {
-                db.Open();
-                var data = db.connection.Get<TokoModel>(id);
                 db.Close();
                 return data;
             }
@@ -97,6 +98,7 @@ namespace MartabakProvis.Repositories
                 return null;
             }
             
+
         }
     }
 }

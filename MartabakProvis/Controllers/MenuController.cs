@@ -39,9 +39,9 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -66,9 +66,9 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -93,9 +93,9 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -148,9 +148,9 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -175,9 +175,9 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }
@@ -199,9 +199,9 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
         }

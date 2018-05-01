@@ -20,77 +20,145 @@ namespace MartabakProvis.Repositories
 
         public List<TransaksiModel> GetAll()
         {
-            db.Open();
-            var data = db.connection.GetAll<TransaksiModel>().ToList();
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var data = db.connection.GetAll<TransaksiModel>().ToList();
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public List<TransaksiModel> GetByIdPembeli(int id)
         {
-            db.Open();
-            var sql = "SELECT * FROM t_transaksi Where xid_pembeli = " + id;
-            TransaksiModel trs = new TransaksiModel();
-            var data = db.connection.Query<TransaksiModel>(sql, 
-                new {
-                    trs.id_transaksi,
-                    trs.tanggal,
-                    trs.jumlah_beli,
-                    trs.total_harga,
-                    trs.id_user
-                }).ToList();
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var sql = "SELECT * FROM t_transaksi Where xid_pembeli = " + id;
+                TransaksiModel trs = new TransaksiModel();
+                var data = db.connection.Query<TransaksiModel>(sql,
+                    new
+                    {
+                        trs.id_transaksi,
+                        trs.tanggal,
+                        trs.jumlah_beli,
+                        trs.total_harga,
+                        trs.id_toko
+                    }).ToList();
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public List<TransaksiModel> GetByTanggal(string tanggal)
         {
-            db.Open();
-            var sql = "SELECT * FROM t_transaksi Where tanggal = '" + tanggal+"'";
-            TransaksiModel trs = new TransaksiModel();
-            var data = db.connection.Query<TransaksiModel>(sql,
-                new
-                {
-                    trs.id_transaksi,
-                    trs.tanggal,
-                    trs.jumlah_beli,
-                    trs.total_harga,
-                    trs.id_user
-                }).ToList();
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var sql = "SELECT * FROM t_transaksi Where tanggal = '" + tanggal + "'";
+                TransaksiModel trs = new TransaksiModel();
+                var data = db.connection.Query<TransaksiModel>(sql).ToList();
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+           
         }
 
         public TransaksiModel GetById(int id)
         {
-            db.Open();
-            var data = db.connection.Get<TransaksiModel>(id);
-            db.Close();
-            return data;
+            try
+            {
+                db.Open();
+                var data = db.connection.Get<TransaksiModel>(id);
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public bool Insert(TransaksiModel transaksi)
         {
-            db.Open();
-            var data = db.connection.Insert<TransaksiModel>(transaksi);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Insert<TransaksiModel>(transaksi);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
+        }
+
+        public bool InsertAll(TransaksiSemuaModel value)
+        {
+            try
+            {
+                db.Open();
+                var dataTransaksi = db.connection.Insert<TransaksiModel>(value.parent);
+                foreach(var list in value.child)
+                {
+                    var dataDetail = db.connection.Insert<DetailTransaksiModel>(list);
+                }
+                db.Close();
+
+                return true;
+            }catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public bool Update(TransaksiModel transaksi)
         {
-            db.Open();
-            var data = db.connection.Update<TransaksiModel>(transaksi);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Update<TransaksiModel>(transaksi);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
 
         public bool Delete(TransaksiModel transaksi)
         {
-            db.Open();
-            var data = db.connection.Delete<TransaksiModel>(transaksi);
-            db.Close();
-            return true;
+            try
+            {
+                db.Open();
+                var data = db.connection.Delete<TransaksiModel>(transaksi);
+                db.Close();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+            
         }
     }
 }

@@ -35,11 +35,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/Transaksi/5
@@ -62,12 +62,12 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
 
-            
+
         }
 
         // GET: api/Transaksi/pembeli/1
@@ -90,11 +90,11 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
         // GET: api/Transaksi/tanggal/1
@@ -117,21 +117,23 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
 
+
         // POST: api/Transaksi
-        [HttpPost(Name = "InsertTransaksi")]
-        public IActionResult Post([FromBody]TransaksiModel value)
+        [HttpPost(Name = "InsertAllTransaksi")]
+        public IActionResult Post2([FromBody]TransaksiSemuaModel value)
         {
             try
             {
-                if (repo.Insert(value))
+                if (repo.InsertAll(value))
                 {
+             
                     return Ok();
                 }
                 else
@@ -140,12 +142,14 @@ namespace MartabakProvis.Controllers
                 }
 
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
         }
-        
+
+
+
         // PUT: api/Transaksi/5
         [HttpPut("{id}", Name = "UpdateTransaksi")]
         public IActionResult Put(int id, [FromBody]TransaksiModel value)
@@ -166,11 +170,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
         
         // DELETE: api/ApiWithActions/5
@@ -180,6 +184,7 @@ namespace MartabakProvis.Controllers
             try
             {
                 var data = repo.GetById(id);
+                
 
                 if (repo.Delete(data))
                 {
@@ -190,11 +195,11 @@ namespace MartabakProvis.Controllers
                     return BadRequest();
                 }
             }
-            catch
+            catch (Exception e)
             {
-                return BadRequest();
+                return BadRequest(e.Message);
             }
-            
+
         }
     }
 }

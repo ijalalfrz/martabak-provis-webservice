@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MartabakProvis.Repositories;
+using MartabakProvis.Models;
 
 namespace MartabakProvis.Controllers
 {
@@ -11,11 +13,33 @@ namespace MartabakProvis.Controllers
     [Route("api/Size")]
     public class SizeController : Controller
     {
+        SizeRepo repo = new SizeRepo();
+        
+
         // GET: api/Size
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult GetAllSize()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var data = repo.GetAll();
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         // GET: api/Size/5

@@ -8,8 +8,8 @@ namespace MartabakProvis.Models
 {
     public class TransaksiSemuaModel
     {
-        public TransaksiModel parent { get; set; }
-        public List<DetailTransaksiModel> child { get; set; }
+        public TransaksiModel transaksi { get; set; }
+        public List<DetailTransaksiModel> detail { get; set; }
 
     }
 }

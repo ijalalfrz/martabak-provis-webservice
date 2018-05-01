@@ -24,40 +24,45 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.GetAll<TransaksiModel>().ToList();
+
                 db.Close();
                 return data;
+
             }
             catch (Exception e)
             {
                 return null;
+                
             }
-            
+
         }
 
-        public List<TransaksiModel> GetByIdPembeli(int id)
+        public List<TransaksiSemuaModel> GetAllWithDetail()
         {
             try
             {
-                db.Open();
-                var sql = "SELECT * FROM t_transaksi Where xid_pembeli = " + id;
-                TransaksiModel trs = new TransaksiModel();
-                var data = db.connection.Query<TransaksiModel>(sql,
-                    new
-                    {
-                        trs.id_transaksi,
-                        trs.tanggal,
-                        trs.jumlah_beli,
-                        trs.total_harga,
-                        trs.id_toko
-                    }).ToList();
-                db.Close();
-                return data;
-            }
-            catch (Exception e)
+                List<TransaksiSemuaModel> list = new List<TransaksiSemuaModel>();
+                DetailTransaksiRepo det = new DetailTransaksiRepo();
+                List<DetailTransaksiModel> listDetail;
+
+                var dataTransaksi = this.GetAll();
+                
+                
+                foreach(var transaksi in dataTransaksi)
+                {
+                    TransaksiSemuaModel tr = new TransaksiSemuaModel();
+                    List<DetailTransaksiModel> listDt = det.GetByIdTransaksi(transaksi.id_transaksi);
+                    tr.transaksi = transaksi;
+                    tr.detail = listDt;
+                    list.Add(tr); 
+                }
+
+                return list;
+
+            }catch (Exception e)
             {
                 return null;
             }
-            
         }
 
         public List<TransaksiModel> GetByTanggal(string tanggal)
@@ -123,8 +128,8 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var dataTransaksi = db.connection.Insert<TransaksiModel>(value.parent);
-                foreach(var list in value.child)
+                var dataTransaksi = db.connection.Insert<TransaksiModel>(value.transaksi);
+                foreach(var list in value.detail)
                 {
                     var dataDetail = db.connection.Insert<DetailTransaksiModel>(list);
                 }
@@ -136,6 +141,8 @@ namespace MartabakProvis.Repositories
                 return false;
             }
         }
+
+        
 
         public bool Update(TransaksiModel transaksi)
         {

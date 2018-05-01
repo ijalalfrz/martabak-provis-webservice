@@ -15,13 +15,14 @@ namespace MartabakProvis.Controllers
     public class TransaksiController : Controller
     {
         TransaksiRepo repo = new TransaksiRepo();
+
         // GET: api/Transaksi
-        [HttpGet(Name = "GetAllTransaksi")]
-        public IActionResult GetAll()
+        [HttpGet(Name = "GetAllWithDetail")]
+        public IActionResult GetAllWithDetail()
         {
             try
             {
-                var data = repo.GetAll();
+                var data = repo.GetAllWithDetail();
                 IActionResult response;
 
                 if (data != null)
@@ -70,32 +71,6 @@ namespace MartabakProvis.Controllers
 
         }
 
-        // GET: api/Transaksi/pembeli/1
-        [HttpGet("pembeli/{id}", Name = "GetByIdPembeli")]
-        public IActionResult GetByIdPembeli(int id)
-        {
-            try
-            {
-                var data = repo.GetByIdPembeli(id);
-                IActionResult response;
-
-                if (data != null)
-                {
-                    response = Ok(data);
-                }
-                else
-                {
-                    response = NotFound();
-                }
-
-                return response;
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-        }
 
         // GET: api/Transaksi/tanggal/1
         [HttpGet("tanggal/{tanggal}", Name = "GetByTanggal")]

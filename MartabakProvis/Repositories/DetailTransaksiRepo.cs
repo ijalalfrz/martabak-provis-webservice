@@ -39,7 +39,7 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var sql = "SELECT * FROM t_detail_transaksi WHERE xid_transaksi = " + id;
+                var sql = "SELECT * FROM t_detail_transaksi WHERE id_transaksi = " + id;
                 DetailTransaksiModel detail = new DetailTransaksiModel();
                 var data = db.connection.Query<DetailTransaksiModel>(sql,
                     new

@@ -94,6 +94,24 @@ namespace MartabakProvis.Repositories
             
         }
 
+        public int? GetLastId()
+        {
+            try
+            {
+                db.Open();
+                string sql = "SELECT * FROM t_transaksi ORDER BY id_transaksi DESC LIMIT 1";
+                var data = db.connection.QuerySingleOrDefault<TransaksiModel>(sql);
+                db.Close();
+                return data.id_transaksi;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+
+
         public bool Insert(TransaksiModel transaksi)
         {
             try
@@ -115,9 +133,13 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
+                value.parent.tanggal = DateTime.Now;
+                value.parent.status = "waiting";
                 var dataTransaksi = db.connection.Insert<TransaksiModel>(value.parent);
+                int? lastid = GetLastId();
                 foreach(var list in value.child)
                 {
+                    list.id_transaksi = (int) lastid;
                     var dataDetail = db.connection.Insert<DetailTransaksiModel>(list);
                 }
                 db.Close();

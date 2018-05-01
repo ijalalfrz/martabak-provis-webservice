@@ -15,5 +15,7 @@ namespace MartabakProvis.Models
         public int jumlah_beli { get; set; }
         public decimal total_harga { get; set; }
         public int id_user { get; set; }
+        public string nama_pembeli { get; set; }
+        public string status { get; set; }
     }
 }

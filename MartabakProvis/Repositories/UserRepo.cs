@@ -40,7 +40,7 @@ namespace MartabakProvis.Repositories
             db.Open();
             var selectSql = "SELECT * FROM t_user WHERE username = @username";
             UserModel menu = new UserModel();
-            var data = db.connection.QuerySingle<UserModel>(selectSql, new
+            var data = db.connection.QuerySingleOrDefault<UserModel>(selectSql, new
             {
                 username = uname
             });
@@ -50,10 +50,19 @@ namespace MartabakProvis.Repositories
 
         public bool Insert(UserModel user)
         {
-            db.Open();
-            var data = db.connection.Insert<UserModel>(user);
-            db.Close();
-            return true;
+            try
+            {
+
+                db.Open();
+                var data = db.connection.Insert<UserModel>(user);
+                db.Close();
+                return true;
+            }
+            catch(Exception e)
+            {
+                return false;
+            }
+         
         }
 
         public bool Update(UserModel user)

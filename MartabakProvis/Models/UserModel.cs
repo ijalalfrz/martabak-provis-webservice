@@ -15,6 +15,6 @@ namespace MartabakProvis.Models
         public string password { get; set; }
         public string nama { get; set; }
         public string role { get; set; }
-        public string id_toko { get; set; }
+        public int? id_toko { get; set; }
     }
 }

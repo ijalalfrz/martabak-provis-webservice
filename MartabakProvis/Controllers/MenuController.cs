@@ -8,6 +8,7 @@ using MartabakProvis.Repositories;
 using MartabakProvis.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace MartabakProvis.Controllers
 {
@@ -157,13 +158,21 @@ namespace MartabakProvis.Controllers
 
         
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             try
             {
                 var data = repo.GetById(id);
+
+                string path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/",
+                        data.gambar);
+                string output = Regex.Replace(path, "/", "\\");
+
+                FileInfo fi = new FileInfo(output);
+                fi.Delete();
 
                 if (repo.Delete(data))
                 {
@@ -190,12 +199,20 @@ namespace MartabakProvis.Controllers
                 var data = repo.GetById(id);
                 var id_part = data.id_menu;
 
-                string pathUpload = await UploadFile(value.gambar);
+                string path = Path.Combine(
+                        Directory.GetCurrentDirectory(), "wwwroot/",
+                        data.gambar);
+                string output = Regex.Replace(path, "/", "\\");
 
-                if (pathUpload != "err")
+                FileInfo fi = new FileInfo(output);
+                fi.Delete();
+
+                path = await UploadFile(value.gambar);
+
+                if (path != "err")
                 {
                     data.id_menu = id_part;
-                    data.gambar = pathUpload;
+                    data.gambar = path;
                     data.deskripsi = value.deskripsi;
                     data.kategori_menu = value.kategori_menu;
                     data.topping = value.topping;

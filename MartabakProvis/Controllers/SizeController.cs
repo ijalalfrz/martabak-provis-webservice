@@ -43,10 +43,29 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Size/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}", Name = "GetSizeByIdMenu")]
+        public IActionResult GetSizeByIdMenu(int id)
         {
-            return "value";
+            try
+            {
+                var data = repo.GetByIdMenu(id);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // POST: api/Size

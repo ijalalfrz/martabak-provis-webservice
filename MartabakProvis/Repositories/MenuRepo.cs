@@ -13,10 +13,14 @@ namespace MartabakProvis.Repositories
     public class MenuRepo : InterRepo<MenuModel>
     {
         Database db;
+        SizeModel size;
+        SizeRepo srepo;
 
         public MenuRepo()
         {
             db = new Database();
+            size = new SizeModel();
+            srepo = new SizeRepo();
         }
 
         public MenuModel GetById(int id)
@@ -174,19 +178,18 @@ namespace MartabakProvis.Repositories
                 var data = db.connection.Insert<MenuModel>(menu);
                 int? lastid = GetLastId();
 
-                SizeModel sizeMedium = new SizeModel();
-                sizeMedium.id_menu = (int)lastid;
-                sizeMedium.harga = menu.harga_medium;
-                sizeMedium.size = "Medium";
+                size.id_menu = (int)lastid;
+                size.harga = menu.harga_medium;
+                size.size = "Medium";
 
-                var dataSizeMedium = db.connection.Insert<SizeModel>(sizeMedium);
+                var dataSizeMedium = db.connection.Insert<SizeModel>(size);
 
-                SizeModel sizeLarge = new SizeModel();
-                sizeLarge.id_menu = (int)lastid;
-                sizeLarge.harga = menu.harga_large;
-                sizeLarge.size = "Large";
 
-                var dataSizeLarge = db.connection.Insert<SizeModel>(sizeLarge);
+                size.id_menu = (int)lastid;
+                size.harga = menu.harga_large;
+                size.size = "Large";
+
+                var dataSizeLarge = db.connection.Insert<SizeModel>(size);
 
                 db.Close();
                 return true;
@@ -204,6 +207,27 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.Update<MenuModel>(menu);
+
+                var listSize = srepo.GetByIdMenu(menu.id_menu);
+
+                int id;
+
+                foreach(var all in listSize)
+                {
+                    id = all.id_size;
+                    if(all.size == "Medium")
+                    {
+                        all.harga = menu.harga_medium;
+                    }
+                    else
+                    {
+                        all.harga = menu.harga_large;
+                    }
+
+                    srepo.Update(all);
+                    
+                }
+
                 db.Close();
                 return true;
             }

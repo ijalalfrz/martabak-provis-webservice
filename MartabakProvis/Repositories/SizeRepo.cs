@@ -83,6 +83,27 @@ namespace MartabakProvis.Repositories
             
 
         }
+
+        public List<SizeModel> GetByIdMenu(int id)
+        {
+            try
+            {
+                db.Open();
+                var sql = "SELECT * FROM t_size WHERE id_menu = " + id;
+                var data = db.connection.Query<SizeModel>(sql, new
+                {
+                    id_menu = id
+                }).ToList();
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+
+        }
         public List<SizeModel> GetAll()
         {
             try

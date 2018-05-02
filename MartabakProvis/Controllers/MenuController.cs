@@ -155,32 +155,7 @@ namespace MartabakProvis.Controllers
 
         }
 
-        // PUT: api/Menu/5
-        [HttpPut("{id}", Name = "Update")]
-        public IActionResult Update(int id, [FromBody]MenuModel value)
-        {
-            try
-            {
-                var data = repo.GetById(id);
-                var id_part = data.id_menu;
-                data = value;
-                data.id_menu = id_part;
-
-                if (repo.Update(value))
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-        }
+        
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
@@ -206,7 +181,47 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // PUT: api/Menu/5
+        [HttpPut("{id}", Name = "Update")]
+        public async Task<IActionResult> Update(int id, [FromForm]MenuViewModel value)
+        {
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_menu;
 
+                string pathUpload = await UploadFile(value.gambar);
+
+                if (pathUpload != "err")
+                {
+                    data.id_menu = id_part;
+                    data.gambar = pathUpload;
+                    data.deskripsi = value.deskripsi;
+                    data.kategori_menu = value.kategori_menu;
+                    data.topping = value.topping;
+                    data.harga_medium = value.harga_medium;
+                    data.harga_large = value.harga_large;
+
+                    if (repo.Update(data))
+                    {
+                        return Created("", data);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
 
         // POST: api/Menu
         [HttpPost(Name = "Insert")]

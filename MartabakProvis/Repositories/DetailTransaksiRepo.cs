@@ -13,9 +13,20 @@ namespace MartabakProvis.Repositories
     public class DetailTransaksiRepo : InterRepo<DetailTransaksiModel>
     {
         Database db;
+        MenuRepo mrepo;
+        MenuModel menu;
+        SizeRepo srepo;
+        SizeModel size;
+
         public DetailTransaksiRepo()
         {
             db = new Database();
+
+            mrepo = new MenuRepo();
+            menu = new MenuModel();
+
+            srepo = new SizeRepo();
+            size = new SizeModel();
         }
 
         public List<DetailTransaksiModel> GetAll()
@@ -24,6 +35,16 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.GetAll<DetailTransaksiModel>().ToList();
+
+                foreach (var all in data)
+                {
+                    menu = mrepo.GetById(all.id_menu);
+                    all.topping = menu.topping;
+
+                    size = srepo.GetById(all.id_size);
+                    all.size = size.size;
+
+                }
                 db.Close();
                 return data;
             }
@@ -40,17 +61,21 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var sql = "SELECT * FROM t_detail_transaksi WHERE id_transaksi = " + id;
-                DetailTransaksiModel detail = new DetailTransaksiModel();
-                var data = db.connection.Query<DetailTransaksiModel>(sql,
-                    new
-                    {
-                        detail.id_detail_transaksi,
-                        detail.jumlah,
-                        detail.harga_sekarang,
-                        detail.total_harga,
-                        detail.id_transaksi,
-                        detail.id_menu
-                    }).ToList();
+                var data = db.connection.Query<DetailTransaksiModel>(sql, new
+                {
+                    id_transaksi = id
+                }).ToList();
+
+                foreach (var all in data)
+                {
+                    menu = mrepo.GetById(all.id_menu);
+                    all.topping = menu.topping;
+
+                    size = srepo.GetById(all.id_size);
+                    all.size = size.size;
+
+                }
+
                 db.Close();
                 return data;
             }
@@ -66,18 +91,22 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var sql = "SELECT * FROM t_detail_transaksi WHERE xid_menu = " + id;
-                DetailTransaksiModel detail = new DetailTransaksiModel();
-                var data = db.connection.Query<DetailTransaksiModel>(sql,
-                    new
-                    {
-                        detail.id_detail_transaksi,
-                        detail.jumlah,
-                        detail.harga_sekarang,
-                        detail.total_harga,
-                        detail.id_transaksi,
-                        detail.id_menu
-                    }).ToList();
+                var sql = "SELECT * FROM t_detail_transaksi WHERE id_menu = " + id;
+                var data = db.connection.Query<DetailTransaksiModel>(sql, new
+                {
+                    id_menu = id
+                }).ToList();
+
+                foreach (var all in data)
+                {
+                    menu = mrepo.GetById(all.id_menu);
+                    all.topping = menu.topping;
+
+                    size = srepo.GetById(all.id_size);
+                    all.size = size.size;
+
+                }
+
                 db.Close();
                 return data;
             }
@@ -94,6 +123,13 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.Get<DetailTransaksiModel>(id);
+
+                menu = mrepo.GetById(data.id_menu);
+                data.topping = menu.topping;
+
+                size = srepo.GetById(data.id_size);
+                data.size = size.size;
+
                 db.Close();
                 return data;
             }
@@ -110,6 +146,7 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.Insert<DetailTransaksiModel>(detail);
+
                 db.Close();
                 return true;
             }

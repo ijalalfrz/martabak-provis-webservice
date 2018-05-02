@@ -15,6 +15,7 @@ namespace MartabakProvis.Controllers
     public class DetailTransaksiController : Controller
     {
         DetailTransaksiRepo repo = new DetailTransaksiRepo();
+
         // GET: api/DetailTransaksi
         [HttpGet(Name = "GetAllDetail")]
         public IActionResult GetAllDetail()
@@ -69,7 +70,7 @@ namespace MartabakProvis.Controllers
 
         }
 
-        // GET: api/DetailTransaksi/detail/1
+        // GET: api/DetailTransaksi/transaksi/1
         [HttpGet("transaksi/{id}", Name = "GetDetailByIdTransaksi")]
         public IActionResult GetDetailByIdTransaksi(int id)
         {
@@ -96,7 +97,7 @@ namespace MartabakProvis.Controllers
 
         }
 
-        // GET: api/DetailTransaksi/detail/1
+        // GET: api/DetailTransaksi/menu/1
         [HttpGet("menu/{id}", Name = "GetDetailByIdMenu")]
         public IActionResult GetDetailByIdMenu(int id)
         {
@@ -124,8 +125,8 @@ namespace MartabakProvis.Controllers
         }
 
         // POST: api/DetailTransaksi
-        [HttpPost]
-        public IActionResult Post([FromBody]DetailTransaksiModel value)
+        [HttpPost(Name = "InsertDetail")]
+        public IActionResult InsertDetail([FromBody]DetailTransaksiModel value)
         {
             try
             {
@@ -146,8 +147,8 @@ namespace MartabakProvis.Controllers
         }
         
         // PUT: api/DetailTransaksi/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody]DetailTransaksiModel value)
+        [HttpPut("{id}", Name = "UpdateDetail")]
+        public IActionResult UpdateDetail(int id, [FromBody]DetailTransaksiModel value)
         {
             try
             {
@@ -173,9 +174,9 @@ namespace MartabakProvis.Controllers
 
         }
         
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        // DELETE: api/DetailTransaksi/5
+        [HttpDelete("{id}", Name = "DeleteDetail")]
+        public IActionResult DeleteDetail(int id)
         {
             try
             {

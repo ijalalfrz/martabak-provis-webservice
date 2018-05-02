@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MartabakProvis.Repositories;
 using MartabakProvis.Models;
+using MartabakProvis.Helper;
 
 namespace MartabakProvis.Controllers
 {
@@ -71,18 +72,31 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Toko
         [HttpPost(Name = "InsertToko")]
-        public IActionResult Insert([FromBody]TokoModel value)
+        public IActionResult Insert([FromBody]TokoSemuaModel value)
         {
             try
             {
-                if (repo.Insert(value))
-                {
-                    return Ok();
-                }
-                else
+                value.user.password = Util.GetSHA1HashData(value.user.password);
+
+                UserRepo urepo = new UserRepo();
+
+                if (urepo.GetByUsername(value.user.username) != null)
                 {
                     return BadRequest();
                 }
+                else
+                {
+                    if (repo.InsertAll(value))
+                    {
+                        return Created("", value);
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+                }
+
+                
             }
             catch (Exception e)
             {

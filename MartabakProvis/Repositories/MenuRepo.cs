@@ -32,7 +32,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
 
@@ -51,16 +51,20 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public List<object> GetAllWithPrice()
         {
             try
             {
+
                 db.Open();
-                var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_menu.id_menu = t_size.id_menu WHERE t_size.size = 'Medium'";
+                var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_menu.id_menu = t_size.id_menu WHERE t_size.size = 'Medium' ORDER BY t_menu.topping";
+
                 var data = db.connection.Query<object>(selectSql).ToList();
+
+
 
                 db.Close();
                 return data;
@@ -70,7 +74,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-           
+
         }
 
         public List<MenuModel> GetAllByTopping(string sort)
@@ -96,7 +100,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public List<object> GetByCategory(string kategori)
@@ -104,14 +108,14 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE kategori_menu = '" + kategori + "' AND t_size.size = 'Medium'";
+                var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE kategori_menu = '" + kategori + "' AND t_size.size = 'Medium' ORDER BY t_menu.topping;";
 
                 var data = db.connection.Query<object>(selectSql, new
                 {
                     kategori_menu = kategori
                 }).ToList();
-                
-                
+
+
 
                 db.Close();
                 return data;
@@ -120,7 +124,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public List<object> GetPriceById(int id)
@@ -141,7 +145,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public bool Insert(MenuModel menu)
@@ -157,7 +161,7 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-            
+
         }
 
         public bool Update(MenuModel menu)
@@ -173,7 +177,7 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-           
+
         }
 
         public bool Delete(MenuModel menu)
@@ -189,9 +193,9 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-            
+
         }
 
-       
+
     }
 }

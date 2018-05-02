@@ -100,13 +100,13 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Transaksi/waiting
-        [HttpGet("status/{stat}", Name = "GetTransaksiByStatus")]
-        public IActionResult GetTransaksiByStatus(string stat)
+        [HttpGet("status/{stat}/{limit?}", Name = "GetTransaksiByStatus")]
+        public IActionResult GetTransaksiByStatus(string stat, int? limit)
         {
             try
             {
                 IActionResult response;
-                var data = repo.GetTransaksiByStatus(stat);
+                var data = repo.GetTransaksiByStatus(stat, limit);
                 if(data != null)
                 {
                     return Ok(data);

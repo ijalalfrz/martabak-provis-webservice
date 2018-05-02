@@ -151,15 +151,21 @@ namespace MartabakProvis.Repositories
             }
         }
 
-        public List<object> GetTransaksiByStatus(string status)
+        public List<object> GetTransaksiByStatus(string status, int? limit)
         {
             try
             {
+                string lim = "";
+                if(limit != null)
+                {
+                    lim = " LIMIT " + limit;
+                }
 
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
                     "ON t_toko.id_toko = t_transaksi.id_transaksi " +
                     "WHERE t_transaksi.status = '" + status + "'";
+                sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
 

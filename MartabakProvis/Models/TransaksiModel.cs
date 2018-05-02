@@ -20,4 +20,10 @@ namespace MartabakProvis.Models
         [Computed]
         public string nama_toko { get; set; }
     }
+
+    public class TransaksiViewModel
+    {
+        public TransaksiModel transaksi { get; set; }
+        public List<DetailTransaksiModel> detail { get; set; }
+    }
 }

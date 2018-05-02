@@ -281,7 +281,7 @@ namespace MartabakProvis.Repositories
             
         }
 
-        public bool InsertAll(TransaksiSemuaModel value)
+        public bool InsertAll(TransaksiViewModel value)
         {
             try
             {

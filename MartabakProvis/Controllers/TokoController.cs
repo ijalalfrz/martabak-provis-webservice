@@ -118,7 +118,7 @@ namespace MartabakProvis.Controllers
 
                 if (repo.Update(value))
                 {
-                    return Ok();
+                    return Created("", value);
                 }
                 else
                 {

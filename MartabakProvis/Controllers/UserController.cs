@@ -43,7 +43,7 @@ namespace MartabakProvis.Controllers
 
         // GET: api/User/5
         [HttpGet("{id}", Name = "GetUserById")]
-        public IActionResult Get(int id)
+        public IActionResult GetUserById(int id)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace MartabakProvis.Controllers
             {
                 if (repo.Insert(value))
                 {
-                    return Ok();
+                    return Created("", value);
                 }
                 else
                 {
@@ -129,7 +129,7 @@ namespace MartabakProvis.Controllers
                 data.id_user = id_part;
 
                 if (repo.Update(value)){
-                    return Ok();
+                    return Created("", value);
                 }
                 else
                 {

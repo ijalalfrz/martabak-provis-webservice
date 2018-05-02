@@ -169,7 +169,7 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertAllTransaksi")]
-        public IActionResult Post([FromBody]TransaksiSemuaModel value)
+        public IActionResult Post([FromBody]TransaksiViewModel value)
         {
             try
             {
@@ -205,7 +205,7 @@ namespace MartabakProvis.Controllers
 
                 if (repo.Update(value))
                 {
-                    return Ok();
+                    return Created("", value);
                 }
                 else
                 {

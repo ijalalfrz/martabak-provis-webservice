@@ -78,7 +78,7 @@ namespace MartabakProvis.Controllers
                 {
                     if (repo.Insert(value))
                     {
-                        return Ok();
+                        return Created("", value);
                     }
                     else
                     {
@@ -110,7 +110,7 @@ namespace MartabakProvis.Controllers
 
                 if (repo.Update(value))
                 {
-                    return Ok();
+                    return Created("", value);
                 }
                 else
                 {

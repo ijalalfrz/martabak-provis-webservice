@@ -196,39 +196,38 @@ namespace MartabakProvis.Controllers
                 var data = repo.GetById(id);
                 var id_part = data.id_menu;
 
-                string path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot/",
-                        data.gambar);
-                string output = Regex.Replace(path, "/", "\\");
-
-                FileInfo fi = new FileInfo(output);
-                fi.Delete();
-
-                path = await UploadFile(value.gambar);
-
-                if (path != "err")
+                if(value.gambar != null)
                 {
-                    data.id_menu = id_part;
-                    data.gambar = path;
-                    data.deskripsi = value.deskripsi;
-                    data.kategori_menu = value.kategori_menu;
-                    data.topping = value.topping;
-                    data.harga_medium = value.harga_medium;
-                    data.harga_large = value.harga_large;
+                    string path = Path.Combine(
+                    Directory.GetCurrentDirectory(), "wwwroot/",
+                    data.gambar);
+                    string output = Regex.Replace(path, "/", "\\");
 
-                    if (repo.Update(data))
-                    {
-                        return Created("", data);
-                    }
-                    else
-                    {
-                        return BadRequest();
-                    }
+                    FileInfo fi = new FileInfo(output);
+                    fi.Delete();
+
+                    path = await UploadFile(value.gambar);
+
+                    data.gambar = path;
+
+                }
+
+                data.id_menu = id_part;
+                data.deskripsi = value.deskripsi;
+                data.kategori_menu = value.kategori_menu;
+                data.topping = value.topping;
+                data.harga_medium = value.harga_medium;
+                data.harga_large = value.harga_large;
+
+                if (repo.Update(data))
+                {
+                    return Created("", data);
                 }
                 else
                 {
                     return BadRequest();
                 }
+                
             }
             catch (Exception e)
             {

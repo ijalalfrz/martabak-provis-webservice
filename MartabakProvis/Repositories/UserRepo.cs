@@ -57,9 +57,9 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
-                var selectSql = "SELECT * FROM t_user WHERE username = @username";
+                var selectSql = "SELECT * FROM t_user WHERE username = '" + uname + "'";
                 UserModel menu = new UserModel();
-                var data = db.connection.QuerySingleOrDefault<UserModel>(selectSql, new
+                var data = db.connection.QuerySingle<UserModel>(selectSql, new
                 {
                     username = uname
                 });

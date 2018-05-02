@@ -84,6 +84,7 @@ namespace MartabakProvis.Repositories
             }
         }
 
+
         public List<TokoViewModel> GetAllWithUser()
         {
             try

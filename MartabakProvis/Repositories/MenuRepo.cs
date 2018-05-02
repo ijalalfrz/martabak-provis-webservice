@@ -110,6 +110,9 @@ namespace MartabakProvis.Repositories
                 {
                     kategori_menu = kategori
                 }).ToList();
+                
+                
+
                 db.Close();
                 return data;
             }

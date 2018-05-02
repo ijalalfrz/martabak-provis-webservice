@@ -17,5 +17,9 @@ namespace MartabakProvis.Models
         public int id_transaksi { get; set; }
         public int id_menu { get; set; }
         public int id_size { get; set; }
+        [Computed]
+        public string topping { get; set; }
+        [Computed]
+        public string size { get; set; }
     }
 }

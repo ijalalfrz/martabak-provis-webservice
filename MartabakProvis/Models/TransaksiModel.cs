@@ -17,6 +17,7 @@ namespace MartabakProvis.Models
         public int? id_toko { get; set; }
         public string nama_pembeli { get; set; }
         public string status { get; set; }
-
+        [Computed]
+        public string nama_toko { get; set; }
     }
 }

@@ -102,7 +102,7 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertAllTransaksi")]
-        public IActionResult Post2([FromBody]TransaksiSemuaModel value)
+        public IActionResult Post([FromBody]TransaksiSemuaModel value)
         {
             try
             {

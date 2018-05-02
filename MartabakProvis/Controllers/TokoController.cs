@@ -22,7 +22,7 @@ namespace MartabakProvis.Controllers
         {
             try
             {
-                var data = repo.GetAll();
+                var data = repo.GetAllWithUser();
                 IActionResult response;
 
                 if (data != null)
@@ -49,7 +49,7 @@ namespace MartabakProvis.Controllers
         {
             try
             {
-                var data = repo.GetById(id);
+                var data = repo.GetByIdWithUser(id);
                 IActionResult response;
 
                 if (data != null)
@@ -72,7 +72,7 @@ namespace MartabakProvis.Controllers
 
         // POST: api/Toko
         [HttpPost(Name = "InsertToko")]
-        public IActionResult Insert([FromBody]TokoSemuaModel value)
+        public IActionResult Insert([FromBody]TokoViewModel value)
         {
             try
             {

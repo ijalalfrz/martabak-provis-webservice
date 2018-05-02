@@ -68,6 +68,26 @@ namespace MartabakProvis.Repositories
 
         }
 
+        public UserModel GetByIdToko(int id)
+        {
+            try
+            {
+                db.Open();
+                var sql = "SELECT * FROM t_user WHERE id_toko = " + id;
+                var data = db.connection.QueryFirst<UserModel>(sql, new
+                {
+                    id_toko = id
+                });
+                db.Close();
+
+                return data;
+
+            }catch(Exception e)
+            {
+                return null;
+            }
+        }
+
         public bool Insert(UserModel user)
         {
             try

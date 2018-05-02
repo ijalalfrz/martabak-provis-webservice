@@ -16,4 +16,10 @@ namespace MartabakProvis.Models
         public string alamat_toko { get; set; }
 
     }
+
+    public class TokoViewModel
+    {
+        public TokoModel toko { get; set; }
+        public UserModel user { get; set; }
+    }
 }

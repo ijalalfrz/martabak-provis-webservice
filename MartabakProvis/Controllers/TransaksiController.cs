@@ -170,6 +170,30 @@ namespace MartabakProvis.Controllers
             }
         }
 
+        // GET: api/Transaksi/toko/5
+        [HttpGet("toko/{id}", Name = "GetTransaksiByIdToko")]
+        public IActionResult GetTransaksiByIdToko(int id)
+        {
+            try
+            {
+                IActionResult response;
+                var data = repo.GetByIdToko(id);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertAllTransaksi")]

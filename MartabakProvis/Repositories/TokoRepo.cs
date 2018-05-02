@@ -13,19 +13,32 @@ namespace MartabakProvis.Repositories
     public class TokoRepo : InterRepo<TokoModel>
     {
         Database db;
+        UserModel user;
+        UserRepo urepo;
+       
+        
+        
 
         public TokoRepo()
         {
             db = new Database();
+            user = new UserModel();
+            urepo = new UserRepo();
         }
 
 
-        public bool Delete(TokoModel pembeli)
+        public bool Delete(TokoModel toko)
         {
             try
             {
                 db.Open();
-                var data = db.connection.Delete<TokoModel>(pembeli);
+                user = urepo.GetByIdToko(toko.id_toko);
+                urepo.Delete(user);
+
+                var data = db.connection.Delete<TokoModel>(toko);
+
+                
+
                 db.Close();
                 return true;
             }
@@ -44,12 +57,62 @@ namespace MartabakProvis.Repositories
                 var data = db.connection.GetAll<TokoModel>().ToList();
                 db.Close();
                 return data;
+            }catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public TokoViewModel GetByIdWithUser(int id)
+        {
+            try
+            {
+                db.Open();
+                var dataToko = db.connection.Get<TokoModel>(id);
+                user = urepo.GetByIdToko(dataToko.id_toko);
+
+                TokoViewModel data = new TokoViewModel();
+                data.toko = dataToko;
+                data.user = user;
+
+                db.Close();
+
+                return data;
+            }catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public List<TokoViewModel> GetAllWithUser()
+        {
+            try
+            {
+                db.Open();
+
+                var toko = db.connection.GetAll<TokoModel>().ToList();
+
+                List<TokoViewModel> list = new List<TokoViewModel>();
+                
+
+                foreach (var all in toko)
+                {
+                    var us = urepo.GetByIdToko(all.id_toko);
+
+                    list.Add(new TokoViewModel { toko = all, user = us });
+
+                }
+
+
+
+                db.Close();
+                return list;
             }
             catch (Exception e)
             {
                 return null;
             }
-            
+
         }
 
         public bool Insert(TokoModel pembeli)
@@ -85,7 +148,7 @@ namespace MartabakProvis.Repositories
 
         }
 
-        public bool InsertAll(TokoSemuaModel input)
+        public bool InsertAll(TokoViewModel input)
         {
             try
             {

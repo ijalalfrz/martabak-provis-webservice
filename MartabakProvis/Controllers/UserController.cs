@@ -68,6 +68,33 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/User/toko/5
+        [HttpGet("toko/{id}", Name = "GetUserByIdToko")]
+        public IActionResult GetUserByIdToko(int id)
+        {
+            try
+            {
+                var data = repo.GetByIdToko(id);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         // POST: api/Menu
         [HttpPost(Name = "InsertUser")]
         public IActionResult Insert([FromBody]UserModel value)

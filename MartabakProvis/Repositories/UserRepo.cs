@@ -32,7 +32,7 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public UserModel GetById(int id)
@@ -48,29 +48,24 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }
-            
+
         }
 
         public UserModel GetByUsername(string uname)
         {
 
-            try
+
+            db.Open();
+            var selectSql = "SELECT * FROM t_user WHERE username = '" + uname + "'";
+            UserModel menu = new UserModel();
+            var data = db.connection.QueryFirst<UserModel>(selectSql, new
             {
-                db.Open();
-                var selectSql = "SELECT * FROM t_user WHERE username = '" + uname + "'";
-                UserModel menu = new UserModel();
-                var data = db.connection.QuerySingle<UserModel>(selectSql, new
-                {
-                    username = uname
-                });
-                db.Close();
-                return data;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-            
+                username = uname
+            });
+            db.Close();
+            return data;
+
+
         }
 
         public bool Insert(UserModel user)
@@ -101,7 +96,7 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-            
+
         }
 
         public bool Delete(UserModel user)
@@ -117,7 +112,7 @@ namespace MartabakProvis.Repositories
             {
                 return false;
             }
-            
+
         }
 
 

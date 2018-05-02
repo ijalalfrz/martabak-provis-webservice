@@ -37,26 +37,34 @@ namespace MartabakProvis.Helper
             Database db = new Database();
             UserModel usr = new UserModel();
             UserRepo repo = new UserRepo();
-
-            if (repo.GetByUsername("toko1") == null)
+            try
             {
-                usr.nama = "Admin";
-                usr.username = "toko1";
-                usr.role = "admin";
-                usr.id_toko = null;
-                usr.password = GetSHA1HashData("mamen123");
-                try
+                var find = repo.GetByUsername("toko1");
+                if (find == null)
                 {
-                    if (!repo.Insert(usr))
+                    usr.nama = "Admin";
+                    usr.username = "toko1";
+                    usr.role = "admin";
+                    usr.id_toko = null;
+                    usr.password = GetSHA1HashData("mamen123");
+                    try
                     {
-                        throw new Exception("error");
+                        if (!repo.Insert(usr))
+                        {
+                            throw new Exception("error");
+                        }
                     }
-                }catch(Exception e)
-                {
-                    int a = 1;
+                    catch (Exception e)
+                    {
+
+                    }
                 }
-              
             }
+            catch(Exception e)
+            {
+
+            }
+           
         }
 
         public static bool ValidateSHA1HashData(string inputData, string storedHashData)

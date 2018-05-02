@@ -34,25 +34,37 @@ namespace MartabakProvis.Controllers
         public IActionResult CreateToken([FromBody]LoginModel login)
         {
             IActionResult response = Unauthorized();
-            var user = Authenticate(login);
-            
-            if (user != null)
+            try
             {
-                var tokenString = BuildToken(user);
-                user.password = "";
-                response = Ok(new {
-                    token = tokenString,
-                    user.id_toko,
-                    user.id_user,
-                    user.nama,
-                    user.password,
-                    user.role,
-                    user.username
+                var user = Authenticate(login);
+
+                if (user != null)
+                {
+                    var tokenString = BuildToken(user);
+                    user.password = "";
+                    response = Ok(new
+                    {
+                        token = tokenString,
+                        user.id_toko,
+                        user.id_user,
+                        user.nama,
+                        user.password,
+                        user.role,
+                        user.username
+                    });
+                }
+
+
+                return response;
+            }
+            catch(Exception e)
+            {
+                return BadRequest(new
+                {
+                    message = e.Message
                 });
             }
-
-            
-            return response;
+      
             
         }
 

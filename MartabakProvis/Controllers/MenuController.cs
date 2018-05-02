@@ -225,7 +225,7 @@ namespace MartabakProvis.Controllers
                     item.topping = value.topping;
                     if (repo.Insert(item))
                     {
-                        return Ok();
+                        return Created("",item);
                     }
                     else
                     {

@@ -99,6 +99,50 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Transaksi/waiting
+        [HttpGet("status/{stat}", Name = "GetTransaksiByStatus")]
+        public IActionResult GetTransaksiByStatus(string stat)
+        {
+            try
+            {
+                IActionResult response;
+                var data = repo.GetTransaksiByStatus(stat);
+                if(data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        // POST: api/Transaksi/status/5
+        [HttpPost("status/{id}", Name = "UpdateStatus")]
+        public IActionResult UpdateStatus(int id)
+        {
+            try
+            {
+                if (repo.UpdateStatus(id))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertAllTransaksi")]

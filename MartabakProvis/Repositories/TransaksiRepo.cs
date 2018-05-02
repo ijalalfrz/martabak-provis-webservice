@@ -74,13 +74,9 @@ namespace MartabakProvis.Repositories
             {
                 return null;
             }         
-                
-
-
-                
-
-            
         }
+
+      
 
         public List<TransaksiModel> GetByTanggal(string tanggal)
         {
@@ -116,6 +112,7 @@ namespace MartabakProvis.Repositories
             
         }
 
+
         public int? GetLastId()
         {
             try
@@ -133,6 +130,68 @@ namespace MartabakProvis.Repositories
 
         }
 
+        public bool UpdateStatus(int id)
+        {
+            try
+            {
+                TransaksiModel transaksi = new TransaksiModel();
+                transaksi = GetById(id);
+                transaksi.status = "done";
+                if (Update(transaksi))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+        public List<object> GetTransaksiByStatus(string status)
+        {
+            try
+            {
+
+                var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
+                    "FROM t_transaksi LEFT JOIN t_toko " +
+                    "ON t_toko.id_toko = t_transaksi.id_transaksi " +
+                    "WHERE t_transaksi.status = '" + status + "'";
+                var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
+
+
+                var detail = new List<object>();
+                foreach (var all in transaksi)
+                {
+                    sql = "SELECT t_detail_transaksi.*, t_menu.topping, t_size.size " +
+                        "FROM t_detail_transaksi " +
+                        "INNER JOIN t_menu " +
+                        "ON t_detail_transaksi.id_menu = t_menu.id_menu " +
+                        "INNER JOIN t_size " +
+                        "ON t_size.id_size = t_detail_transaksi.id_size " +
+                        "WHERE t_detail_transaksi.id_transaksi = " + all.id_transaksi;
+                    var det = db.connection.Query<DetailTransaksiModel>(sql).ToList();
+
+
+                    detail.Add(new
+                    {
+                        transaksi = all,
+                        detail = det
+                    });
+                }
+
+
+                return detail;
+
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
 
         public bool Insert(TransaksiModel transaksi)
         {

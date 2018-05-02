@@ -20,8 +20,12 @@ namespace MartabakProvis.Models
         public string kategori_menu { get; set; }
         public string gambar { get; set; }
         public string deskripsi { get; set; }
+        [Computed]
+        public decimal harga_medium { get; set; }
+        [Computed]
+        public decimal harga_large { get; set; }
 
-       
+
     }
 
     public class MenuViewModel
@@ -33,6 +37,11 @@ namespace MartabakProvis.Models
         public string kategori_menu { get; set; }
         public IFormFile gambar { get; set; }
         public string deskripsi { get; set; }
+        [Computed]
+        public decimal harga_medium { get; set; }
+        [Computed]
+        public decimal harga_large { get; set; }
+
 
 
     }

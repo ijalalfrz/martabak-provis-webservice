@@ -17,7 +17,7 @@ namespace MartabakProvis.Controllers
         DetailTransaksiRepo repo = new DetailTransaksiRepo();
         // GET: api/DetailTransaksi
         [HttpGet(Name = "GetAllDetail")]
-        public IActionResult GetAll()
+        public IActionResult GetAllDetail()
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MartabakProvis.Controllers
 
         // GET: api/DetailTransaksi/5
         [HttpGet("{id}", Name = "GetDetailById")]
-        public IActionResult GetById(int id)
+        public IActionResult GetDetailById(int id)
         {
             try
             {
@@ -70,8 +70,8 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/DetailTransaksi/detail/1
-        [HttpGet("detail/{id}", Name = "GetByIdTransaksi")]
-        public IActionResult GetByIdTransaksi(int id)
+        [HttpGet("transaksi/{id}", Name = "GetDetailByIdTransaksi")]
+        public IActionResult GetDetailByIdTransaksi(int id)
         {
             try
             {
@@ -97,8 +97,8 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/DetailTransaksi/detail/1
-        [HttpGet("detail/{id}", Name = "GetByIdMenu")]
-        public IActionResult GetByIdMenu(int id)
+        [HttpGet("menu/{id}", Name = "GetDetailByIdMenu")]
+        public IActionResult GetDetailByIdMenu(int id)
         {
             try
             {

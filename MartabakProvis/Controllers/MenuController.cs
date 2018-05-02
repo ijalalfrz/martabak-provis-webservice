@@ -223,6 +223,8 @@ namespace MartabakProvis.Controllers
                     item.deskripsi = value.deskripsi;
                     item.kategori_menu = value.kategori_menu;
                     item.topping = value.topping;
+                    item.harga_medium = value.harga_medium;
+                    item.harga_large = value.harga_large;
                     if (repo.Insert(item))
                     {
                         return Created("",item);
@@ -250,7 +252,7 @@ namespace MartabakProvis.Controllers
         {
             if (file == null || file.Length == 0)
                 return "err";
-            string filename = DateTime.Now.Ticks.ToString() + "." + Path.GetExtension(file.FileName);
+            string filename = DateTime.Now.Ticks.ToString() + Path.GetExtension(file.FileName);
             var path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/uploads",
                         filename);

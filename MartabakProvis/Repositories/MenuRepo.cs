@@ -148,12 +148,46 @@ namespace MartabakProvis.Repositories
 
         }
 
-        public bool Insert(MenuModel menu)
+        public int? GetLastId()
         {
             try
             {
                 db.Open();
+                string sql = "SELECT * FROM t_menu ORDER BY id_menu DESC LIMIT 1";
+                var data = db.connection.QuerySingleOrDefault<MenuModel>(sql);
+                db.Close();
+                return data.id_menu;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+
+        public bool Insert(MenuModel menu)
+        {
+            try
+            {
+                
+                db.Open();
                 var data = db.connection.Insert<MenuModel>(menu);
+                int? lastid = GetLastId();
+
+                SizeModel sizeMedium = new SizeModel();
+                sizeMedium.id_menu = (int)lastid;
+                sizeMedium.harga = menu.harga_medium;
+                sizeMedium.size = "Medium";
+
+                var dataSizeMedium = db.connection.Insert<SizeModel>(sizeMedium);
+
+                SizeModel sizeLarge = new SizeModel();
+                sizeLarge.id_menu = (int)lastid;
+                sizeLarge.harga = menu.harga_large;
+                sizeLarge.size = "Large";
+
+                var dataSizeLarge = db.connection.Insert<SizeModel>(sizeLarge);
+
                 db.Close();
                 return true;
             }

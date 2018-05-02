@@ -243,7 +243,18 @@ namespace MartabakProvis.Repositories
             try
             {
                 db.Open();
+                var listSize = srepo.GetByIdMenu(menu.id_menu);
+
+                foreach (var all in listSize)
+                {
+                    srepo.Delete(all);
+                }
+
                 var data = db.connection.Delete<MenuModel>(menu);
+
+
+                
+
                 db.Close();
                 return true;
             }

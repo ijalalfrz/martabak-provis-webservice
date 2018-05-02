@@ -162,23 +162,6 @@ namespace MartabakProvis.Repositories
             }
         }
 
-        public List<TransaksiModel> GetByTanggal(string tanggal)
-        {
-            try
-            {
-                db.Open();
-                var sql = "SELECT * FROM t_transaksi Where tanggal = '" + tanggal + "'";
-                var data = db.connection.Query<TransaksiModel>(sql).ToList();
-                db.Close();
-                return data;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-           
-        }
-
         public TransaksiModel GetById(int id)
         {
             try

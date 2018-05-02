@@ -70,20 +70,82 @@ namespace MartabakProvis.Controllers
         
         // POST: api/Size
         [HttpPost]
-        public void Post([FromBody]string value)
+        public IActionResult Post([FromBody]SizeModel value)
         {
+            try
+            {
+                try
+                {
+                    if (repo.Insert(value))
+                    {
+                        return Ok();
+                    }
+                    else
+                    {
+                        return BadRequest();
+                    }
+
+                }
+                catch (Exception e)
+                {
+                    return BadRequest(e.Message);
+                }
+            }
+            catch(Exception e)
+            {
+                return BadRequest();
+            }
         }
         
         // PUT: api/Size/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public IActionResult Put(int id, [FromBody]SizeModel value)
         {
+            try
+            {
+                var data = repo.GetById(id);
+                var id_part = data.id_size;
+                data = value;
+                data.id_size = id_part;
+
+                if (repo.Update(value))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            try
+            {
+                var data = repo.GetById(id);
+
+                if (repo.Delete(data))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }

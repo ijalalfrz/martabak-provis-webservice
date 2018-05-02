@@ -16,7 +16,7 @@ namespace MartabakProvis.Controllers
         UserRepo repo = new UserRepo();
         // GET: api/User
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult GetAll()
         {
             try
             {

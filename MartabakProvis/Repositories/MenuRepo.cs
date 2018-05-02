@@ -29,6 +29,18 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.Get<MenuModel>(id);
+                var listSize = srepo.GetByIdMenu(id);
+                foreach(var all in listSize)
+                {
+                    if(all.size == "Medium")
+                    {
+                        data.harga_medium = all.harga;
+                    }
+                    else
+                    {
+                        data.harga_large = all.harga;
+                    }
+                }
                 db.Close();
                 return data;
             }
@@ -87,6 +99,25 @@ namespace MartabakProvis.Repositories
             {
                 db.Open();
                 var data = db.connection.GetAll<MenuModel>().ToList();
+
+                foreach(var a in data)
+                {
+                    var listSize = srepo.GetByIdMenu(a.id_menu);
+                    foreach (var all in listSize)
+                    {
+                        if (all.size == "Medium")
+                        {
+                            a.harga_medium = all.harga;
+                        }
+                        else
+                        {
+                            a.harga_large = all.harga;
+                        }
+                    }
+                }
+
+                
+
                 List<MenuModel> SortedList;
                 if (sort == "asc")
                 {

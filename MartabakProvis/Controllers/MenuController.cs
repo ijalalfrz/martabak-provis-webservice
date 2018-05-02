@@ -19,7 +19,6 @@ namespace MartabakProvis.Controllers
     {
         MenuRepo repo = new MenuRepo();
 
-     
         // GET: api/Menu
         [HttpGet(Name = "GetAllWithPrice")]
         public IActionResult GetAllWithPrice()
@@ -47,7 +46,7 @@ namespace MartabakProvis.Controllers
 
         }
 
-        // GET: api/Menu
+        // GET: api/Menu/5
         [HttpGet("price/{id}", Name = "GetPriceById")]
         public IActionResult GetPriceById(int id)
         {
@@ -76,7 +75,7 @@ namespace MartabakProvis.Controllers
 
         // GET: api/Menu/5
         [HttpGet("{id}", Name = "GetMenuById")]
-        public IActionResult Get(int id)
+        public IActionResult GetMenuById(int id)
         {
             try
             {
@@ -103,7 +102,7 @@ namespace MartabakProvis.Controllers
 
         // GET : api/Menu/category/Manis
         [HttpGet("category/{kategori}", Name = "GetMenuByCategory")]
-        public IActionResult GetByCategory(string kategori)
+        public IActionResult GetMenuByCategory(string kategori)
         {
             try
             {
@@ -131,8 +130,8 @@ namespace MartabakProvis.Controllers
         }
         
         // GET: api/Menu/topping/asc
-        [HttpGet("topping/{sort}", Name = "GetAllNama")]
-        public IActionResult GetAllNama(string sort)
+        [HttpGet("topping/{sort}", Name = "GetSortedTopping")]
+        public IActionResult GetSortedTopping(string sort)
         {
             try
             {
@@ -155,8 +154,6 @@ namespace MartabakProvis.Controllers
             }
 
         }
-
-        
 
         // DELETE: api/5
         [HttpDelete("{id}")]

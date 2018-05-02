@@ -98,34 +98,6 @@ namespace MartabakProvis.Controllers
 
         }
 
-
-        // GET: api/Transaksi/tanggal/1
-        [HttpGet("tanggal/{tanggal}", Name = "GetByTanggal")]
-        public IActionResult GetByTanggal(string tanggal)
-        {
-            try
-            {
-                var data = repo.GetByTanggal(tanggal);
-                IActionResult response;
-
-                if (data != null)
-                {
-                    response = Ok(data);
-                }
-                else
-                {
-                    response = NotFound();
-                }
-
-                return response;
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-        }
-
         // GET: api/Transaksi/waiting
         [HttpGet("status/{stat}/{limit?}", Name = "GetTransaksiByStatus")]
         public IActionResult GetTransaksiByStatus(string stat, int? limit)

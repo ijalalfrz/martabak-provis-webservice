@@ -43,6 +43,33 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Transaksi
+        [HttpGet("date/{limit?}", Name = "GetAllWithDetailDate")]
+        public IActionResult GetAllWithDetailDate(int? limit)
+        {
+            try
+            {
+                var data = repo.GetAllWithDetailDate(limit);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         // GET: api/Transaksi/5
         [HttpGet("{id}", Name = "GetById")]
         public IActionResult GetById(int id)

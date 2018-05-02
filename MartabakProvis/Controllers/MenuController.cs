@@ -128,7 +128,7 @@ namespace MartabakProvis.Controllers
             }
 
         }
-        
+
         // GET: api/Menu/topping/asc
         [HttpGet("topping/{sort}", Name = "GetSortedTopping")]
         public IActionResult GetSortedTopping(string sort)
@@ -162,14 +162,16 @@ namespace MartabakProvis.Controllers
             try
             {
                 var data = repo.GetById(id);
-
-                string path = Path.Combine(
+                if (data.gambar!=null) {
+                    string path = Path.Combine(
                         Directory.GetCurrentDirectory(), "wwwroot/",
                         data.gambar);
-                string output = Regex.Replace(path, "/", "\\");
+                    string output = Regex.Replace(path, "/", "\\");
 
-                FileInfo fi = new FileInfo(output);
-                fi.Delete();
+                    FileInfo fi = new FileInfo(output);
+                    fi.Delete();
+
+                }
 
                 if (repo.Delete(data))
                 {
@@ -196,15 +198,20 @@ namespace MartabakProvis.Controllers
                 var data = repo.GetById(id);
                 var id_part = data.id_menu;
 
-                if(value.gambar != null)
+                if (value.gambar != null)
                 {
-                    string path = Path.Combine(
-                    Directory.GetCurrentDirectory(), "wwwroot/",
-                    data.gambar);
-                    string output = Regex.Replace(path, "/", "\\");
+                    string path = "";
+                    if (data.gambar != null)
+                    {
+                        path = Path.Combine(
+                          Directory.GetCurrentDirectory(), "wwwroot/",
+                          data.gambar);
+                        string output = Regex.Replace(path, "/", "\\");
 
-                    FileInfo fi = new FileInfo(output);
-                    fi.Delete();
+                        FileInfo fi = new FileInfo(output);
+                        fi.Delete();
+                    }
+
 
                     path = await UploadFile(value.gambar);
 
@@ -227,7 +234,7 @@ namespace MartabakProvis.Controllers
                 {
                     return BadRequest();
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -255,7 +262,7 @@ namespace MartabakProvis.Controllers
                     item.harga_large = value.harga_large;
                     if (repo.Insert(item))
                     {
-                        return Created("",item);
+                        return Created("", item);
                     }
                     else
                     {

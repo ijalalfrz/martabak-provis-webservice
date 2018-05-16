@@ -51,6 +51,25 @@ namespace MartabakProvis.Repositories
 
         }
 
+        public MenuModel GetByTopping(string topping)
+        {
+            try
+            {
+                db.Open();
+                var selectSql = "SELECT * FROM t_menu WHERE topping = '"+topping+"'";
+
+                var data = db.connection.QuerySingleOrDefault<MenuModel>(selectSql);
+
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+
+        }
+
 
         public List<MenuModel> GetAll()
         {

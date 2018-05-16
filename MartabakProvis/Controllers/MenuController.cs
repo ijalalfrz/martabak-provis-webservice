@@ -249,20 +249,26 @@ namespace MartabakProvis.Controllers
         {
             try
             {
-
-                string pathUpload = await UploadFile(value.gambar);
-                if (pathUpload != "err")
+                if (repo.GetByTopping(value.topping) == null)
                 {
-                    MenuModel item = new MenuModel();
-                    item.gambar = pathUpload;
-                    item.deskripsi = value.deskripsi;
-                    item.kategori_menu = value.kategori_menu;
-                    item.topping = value.topping;
-                    item.harga_medium = value.harga_medium;
-                    item.harga_large = value.harga_large;
-                    if (repo.Insert(item))
+                    string pathUpload = await UploadFile(value.gambar);
+                    if (pathUpload != "err")
                     {
-                        return Created("", item);
+                        MenuModel item = new MenuModel();
+                        item.gambar = pathUpload;
+                        item.deskripsi = value.deskripsi;
+                        item.kategori_menu = value.kategori_menu;
+                        item.topping = value.topping;
+                        item.harga_medium = value.harga_medium;
+                        item.harga_large = value.harga_large;
+                        if (repo.Insert(item))
+                        {
+                            return Created("", item);
+                        }
+                        else
+                        {
+                            return BadRequest();
+                        }
                     }
                     else
                     {
@@ -273,6 +279,7 @@ namespace MartabakProvis.Controllers
                 {
                     return BadRequest();
                 }
+                
 
 
             }

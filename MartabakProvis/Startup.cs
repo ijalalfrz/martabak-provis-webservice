@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MartabakProvis.Helper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,6 +60,8 @@ namespace MartabakProvis
             });
 
 
+            services.AddSignalR();
+
             services.AddMvc();
         }
 
@@ -73,6 +76,10 @@ namespace MartabakProvis
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseCors("CorsPolicy");
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<PushNotif>("/pushnotif");
+            });
             app.UseMvc();
         }
     }

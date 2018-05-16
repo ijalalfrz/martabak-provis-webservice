@@ -173,8 +173,8 @@ namespace MartabakProvis.Repositories
                 db.Open();
 
                 var data = db.connection.Get<TransaksiModel>(id);
-                toko = trepo.GetById((int)data.id_toko);
-                data.nama_toko = toko.nama_toko;
+                //toko = trepo.GetById((int)data.id_toko);
+                //data.nama_toko = toko.nama_toko;
                 db.Close();
                 return data;
             }

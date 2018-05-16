@@ -44,7 +44,8 @@ namespace MartabakProvis.Controllers
                     user.password = "";
                     response = Ok(new
                     {
-                        token = tokenString,
+                        token = tokenString.token,
+                        expire = tokenString.expires,
                         user.id_toko,
                         user.id_user,
                         user.nama,
@@ -57,15 +58,15 @@ namespace MartabakProvis.Controllers
 
                 return response;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(new
                 {
                     message = e.Message
                 });
             }
-      
-            
+
+
         }
 
         private UserModel Authenticate(LoginModel login)
@@ -84,17 +85,28 @@ namespace MartabakProvis.Controllers
             return null;
         }
 
-        private string BuildToken(UserModel user)
+        private TokenModel BuildToken(UserModel user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
+            DateTime expire = DateTime.Now.AddDays(30);
+
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
-              expires: DateTime.Now.AddDays(30),
+              expires: expire,
               signingCredentials: creds);
+            TokenModel data = new TokenModel();
+            data.token = new JwtSecurityTokenHandler().WriteToken(token);
+            data.expires = expire;
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            return data;
+    }
+
+        private class TokenModel
+        {
+            public string token { get; set; }
+            public DateTime expires { get; set; }
         }
 
     }

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using MartabakProvis.Repositories;
 using MartabakProvis.Models;
 using Microsoft.AspNetCore.Authorization;
+using MartabakProvis.Helper;
+using Microsoft.AspNetCore.SignalR;
 
 namespace MartabakProvis.Controllers
 {
@@ -16,6 +18,16 @@ namespace MartabakProvis.Controllers
     {
         TransaksiRepo repo = new TransaksiRepo();
 
+       
+        public TransaksiController(IHubContext<PushNotif> hubcontext)
+        {
+            HubContext = hubcontext;
+        }
+        private IHubContext<PushNotif> HubContext
+        {
+            get;
+            set;
+        }
         // GET: api/Transaksi
         [HttpGet(Name = "GetAllWithDetail")]
         public IActionResult GetAllWithDetail()
@@ -175,7 +187,10 @@ namespace MartabakProvis.Controllers
             {
                 if (repo.InsertAll(value))
                 {
-             
+
+                    HubContext.Clients.All.SendAsync("orderNotif",new {
+                        message = "Ada pesanan baru atas nama " + value.transaksi.nama_pembeli
+                    });
                     return Ok();
                 }
                 else

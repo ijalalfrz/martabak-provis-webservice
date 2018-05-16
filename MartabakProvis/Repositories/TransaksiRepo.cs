@@ -237,7 +237,7 @@ namespace MartabakProvis.Repositories
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
                     "ON t_toko.id_toko = t_transaksi.id_toko " +
-                    "WHERE t_transaksi.status = '" + status + "'";
+                    "WHERE t_transaksi.status = '" + status + "' ORDER BY t_transaksi.tanggal DESC";
                 sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
@@ -261,7 +261,6 @@ namespace MartabakProvis.Repositories
                         detail = det
                     });
                 }
-
 
                 return detail;
 

@@ -82,6 +82,32 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Transaksi/03-03-2018/04-04-2018
+        [HttpGet("date/{from}/{until}/{limit?}", Name = "GetByDateRange")]
+        public IActionResult GetByDateRange(string from, string until, int? limit)
+        {
+            try
+            {
+                var data = repo.GetByDateRange(from, until, limit);
+                IActionResult response;
+
+                if (data != null)
+                {
+                    response = Ok(data);
+                }
+                else
+                {
+                    response = NotFound();
+                }
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // GET: api/Transaksi/5
         [HttpGet("{id}", Name = "GetById")]
         public IActionResult GetById(int id)
@@ -205,7 +231,6 @@ namespace MartabakProvis.Controllers
                 return BadRequest(e.Message);
             }
         }
-
 
 
         // PUT: api/Transaksi/5

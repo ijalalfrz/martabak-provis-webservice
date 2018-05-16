@@ -126,6 +126,55 @@ namespace MartabakProvis.Repositories
             }
         }
 
+        public List<object> GetByDateRange(string from, string until, int? limit)
+        {
+            try
+            {
+                string lim = "";
+                if (limit != null)
+                {
+                    lim = " LIMIT " + limit;
+                }
+
+                var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
+                    "FROM t_transaksi LEFT JOIN t_toko " +
+                    "ON t_toko.id_toko = t_transaksi.id_toko " +
+                    "WHERE t_transaksi.tanggal >= '"+from+" 00:00:00' and t_transaksi.tanggal <= '"+until+" 23:59:59' " +
+                    "ORDER BY t_transaksi.tanggal DESC ";
+                sql += lim;
+                var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
+
+
+                var detail = new List<object>();
+                foreach (var all in transaksi)
+                {
+                    sql = "SELECT t_detail_transaksi.*, t_menu.topping, t_size.size " +
+                        "FROM t_detail_transaksi " +
+                        "INNER JOIN t_menu " +
+                        "ON t_detail_transaksi.id_menu = t_menu.id_menu " +
+                        "INNER JOIN t_size " +
+                        "ON t_size.id_size = t_detail_transaksi.id_size " +
+                        "WHERE t_detail_transaksi.id_transaksi = " + all.id_transaksi;
+                    var det = db.connection.Query<DetailTransaksiModel>(sql).ToList();
+
+
+                    detail.Add(new
+                    {
+                        transaksi = all,
+                        detail = det
+                    });
+                }
+
+
+                return detail;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+
         public List<object> GetByIdToko(int id)
         {
             try

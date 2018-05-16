@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Menu")]
+    [Route("api/Menu"), Authorize]
 
     public class MenuController : Controller
     {

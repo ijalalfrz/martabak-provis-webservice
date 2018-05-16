@@ -13,12 +13,12 @@ using Microsoft.AspNetCore.SignalR;
 namespace MartabakProvis.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Transaksi"),Authorize]
+    [Route("api/Transaksi"), Authorize]
     public class TransaksiController : Controller
     {
         TransaksiRepo repo = new TransaksiRepo();
 
-       
+
         public TransaksiController(IHubContext<PushNotif> hubcontext)
         {
             HubContext = hubcontext;
@@ -29,12 +29,12 @@ namespace MartabakProvis.Controllers
             set;
         }
         // GET: api/Transaksi
-        [HttpGet(Name = "GetAllWithDetail")]
-        public IActionResult GetAllWithDetail()
+        [HttpGet("sort/{order}/{limit?}", Name = "GetAllWithDetail")]
+        public IActionResult GetAllWithDetail(string order, int? limit)
         {
             try
             {
-                var data = repo.GetAllWithDetail();
+                var data = repo.GetAllWithDetail(order, limit);
                 IActionResult response;
 
                 if (data != null)
@@ -56,12 +56,12 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Transaksi
-        [HttpGet("date/{limit?}", Name = "GetAllWithDetailDate")]
-        public IActionResult GetAllWithDetailDate(int? limit)
+        [HttpGet("date/{order}/{limit?}", Name = "GetAllWithDetailDate")]
+        public IActionResult GetAllWithDetailDate(string order, int? limit)
         {
             try
             {
-                var data = repo.GetAllWithDetailDate(limit);
+                var data = repo.GetAllWithDetailDate(order, limit);
                 IActionResult response;
 
                 if (data != null)
@@ -83,12 +83,12 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Transaksi/03-03-2018/04-04-2018
-        [HttpGet("date/{from}/{until}/{limit?}", Name = "GetByDateRange")]
-        public IActionResult GetByDateRange(string from, string until, int? limit)
+        [HttpGet("date/{from}/{until}/{order}/{limit?}", Name = "GetByDateRange")]
+        public IActionResult GetByDateRange(string from, string until, string order, int? limit)
         {
             try
             {
-                var data = repo.GetByDateRange(from, until, limit);
+                var data = repo.GetByDateRange(from, until, order, limit);
                 IActionResult response;
 
                 if (data != null)
@@ -137,13 +137,13 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Transaksi/waiting
-        [HttpGet("status/{stat}/{limit?}", Name = "GetTransaksiByStatus")]
-        public IActionResult GetTransaksiByStatus(string stat, int? limit)
+        [HttpGet("status/{stat}/{order}/{limit?}", Name = "GetTransaksiByStatus")]
+        public IActionResult GetTransaksiByStatus(string stat, string order, int? limit)
         {
             try
             {
                 IActionResult response;
-                var data = repo.GetTransaksiByStatus(stat, limit);
+                var data = repo.GetTransaksiByStatus(stat, order, limit);
                 if(data != null)
                 {
                     return Ok(data);
@@ -181,13 +181,13 @@ namespace MartabakProvis.Controllers
         }
 
         // GET: api/Transaksi/toko/5
-        [HttpGet("toko/{id}", Name = "GetTransaksiByIdToko")]
-        public IActionResult GetTransaksiByIdToko(int id)
+        [HttpGet("toko/{id}/{order}/{limit?}", Name = "GetTransaksiByIdToko")]
+        public IActionResult GetTransaksiByIdToko(int id, string order, int? limit)
         {
             try
             {
                 IActionResult response;
-                var data = repo.GetByIdToko(id);
+                var data = repo.GetByIdToko(id, order, limit);
                 if (data != null)
                 {
                     return Ok(data);
@@ -203,7 +203,6 @@ namespace MartabakProvis.Controllers
                 return BadRequest(e.Message);
             }
         }
-
 
         // POST: api/Transaksi
         [HttpPost(Name = "InsertAllTransaksi")]
@@ -230,7 +229,6 @@ namespace MartabakProvis.Controllers
                 return BadRequest(e.Message);
             }
         }
-
 
         // PUT: api/Transaksi/5
         [HttpPut("{id}", Name = "UpdateTransaksi")]

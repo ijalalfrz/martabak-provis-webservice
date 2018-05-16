@@ -41,13 +41,22 @@ namespace MartabakProvis.Repositories
 
         }
 
-        public List<object> GetAllWithDetail()
+        public List<object> GetAllWithDetail(string order, int? limit)
         {
             try
             {
+
+                string lim = "";
+                if (limit != null)
+                {
+                    lim = " LIMIT " + limit;
+                }
+
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
-                    "ON t_toko.id_toko = t_transaksi.id_toko;";
+                    "ON t_toko.id_toko = t_transaksi.id_toko " +
+                    "ORDER BY t_transaksi.tanggal " + order;
+                sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
 
@@ -80,7 +89,7 @@ namespace MartabakProvis.Repositories
             }         
         }
 
-        public List<object> GetAllWithDetailDate(int? limit)
+        public List<object> GetAllWithDetailDate(string order, int? limit)
         {
             try
             {
@@ -92,7 +101,7 @@ namespace MartabakProvis.Repositories
 
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
-                    "ON t_toko.id_toko = t_transaksi.id_toko ORDER BY t_transaksi.tanggal DESC ";
+                    "ON t_toko.id_toko = t_transaksi.id_toko ORDER BY t_transaksi.tanggal " + order;
                 sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
@@ -126,7 +135,7 @@ namespace MartabakProvis.Repositories
             }
         }
 
-        public List<object> GetByDateRange(string from, string until, int? limit)
+        public List<object> GetByDateRange(string from, string until, string order, int? limit)
         {
             try
             {
@@ -140,7 +149,7 @@ namespace MartabakProvis.Repositories
                     "FROM t_transaksi LEFT JOIN t_toko " +
                     "ON t_toko.id_toko = t_transaksi.id_toko " +
                     "WHERE t_transaksi.tanggal >= '"+from+" 00:00:00' and t_transaksi.tanggal <= '"+until+" 23:59:59' " +
-                    "ORDER BY t_transaksi.tanggal DESC ";
+                    "ORDER BY t_transaksi.tanggal " + order;
                 sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
@@ -175,14 +184,20 @@ namespace MartabakProvis.Repositories
         }
 
 
-        public List<object> GetByIdToko(int id)
+        public List<object> GetByIdToko(int id, string order, int? limit)
         {
             try
             {
+                string lim = "";
+                if (limit != null)
+                {
+                    lim = " LIMIT " + limit;
+                }
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
                     "ON t_toko.id_toko = t_transaksi.id_toko " +
-                    "WHERE t_transaksi.id_toko = " + id + " ORDER BY t_transaksi.tanggal DESC";
+                    "WHERE t_transaksi.id_toko = " + id + " ORDER BY t_transaksi.tanggal " + order;
+                sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 
 
@@ -273,7 +288,7 @@ namespace MartabakProvis.Repositories
             }
         }
 
-        public List<object> GetTransaksiByStatus(string status, int? limit)
+        public List<object> GetTransaksiByStatus(string status, string order, int? limit)
         {
             try
             {
@@ -286,7 +301,7 @@ namespace MartabakProvis.Repositories
                 var sql = "SELECT t_transaksi.*, t_toko.nama_toko " +
                     "FROM t_transaksi LEFT JOIN t_toko " +
                     "ON t_toko.id_toko = t_transaksi.id_toko " +
-                    "WHERE t_transaksi.status = '" + status + "' ORDER BY t_transaksi.tanggal DESC";
+                    "WHERE t_transaksi.status = '" + status + "' ORDER BY t_transaksi.tanggal " + order;
                 sql += lim;
                 var transaksi = db.connection.Query<TransaksiModel>(sql).ToList();
 

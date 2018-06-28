@@ -112,7 +112,7 @@ namespace MartabakProvis.Repositories
 
         }
 
-        public List<MenuModel> GetBestSellerMenu(int? limit)
+        public List<object> GetBestSellerMenu(int? limit)
         {
             try
             {
@@ -131,14 +131,15 @@ namespace MartabakProvis.Repositories
                 sql += lim;
                 var trans = db.connection.Query<DetailTransaksiModel>(sql).ToList();
 
-                MenuRepo mrepo = new MenuRepo();
-                MenuModel menu = new MenuModel();
 
-                List<MenuModel> data = new List<MenuModel>();
+
+                var data = new List<object>();
+
                 foreach (var all in trans)
                 {
-                    menu = mrepo.GetById(all.id_menu);
-                    data.Add(menu);
+                    var selectSql = "SELECT t_menu.*, t_size.harga FROM t_menu INNER JOIN t_size ON t_size.id_menu = t_menu.id_menu WHERE t_menu.id_menu = " + all.id_menu + " AND t_size.size = 'Medium' ORDER BY t_menu.topping;";
+                    var val = db.connection.QueryFirstOrDefault<object>(selectSql);
+                    data.Add(val);
                 }
                 db.Close();
                 return data;

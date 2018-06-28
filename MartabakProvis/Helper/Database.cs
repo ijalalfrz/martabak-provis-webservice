@@ -14,6 +14,7 @@ namespace MartabakProvis.Helper
         private string database;
         private string uid;
         private string password;
+        private string port;
 
         public Database()
         {
@@ -22,13 +23,18 @@ namespace MartabakProvis.Helper
 
         private void Initialize()
         {
-            server = "85.10.205.173";
+            //server = "85.10.205.173";
+            server = "127.0.0.1";
             database = "martabakprovis";
-            uid = "mamenkece";
-            password = "rahasiaku123";
+            //uid = "mamenkece";
+            uid = "root";
+            //password = "rahasiaku123";
+            password = "";
+            //port = "3307";
+            port = "3306";
             string connectionString = String.Format(
             "server={0};Port={1}; database={2};UID={3};password={4}",
-            server, "3307", database, uid, password);
+            server, port, database, uid, password);
 
             connection = new MySqlConnection(connectionString);
         }

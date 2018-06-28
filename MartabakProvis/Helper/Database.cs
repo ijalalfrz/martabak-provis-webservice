@@ -26,9 +26,10 @@ namespace MartabakProvis.Helper
             database = "martabakprovis";
             uid = "mamenkece";
             password = "rahasiaku123";
-            string connectionString = String.Format(
-            "server={0};Port={1}; database={2};UID={3};password={4}",
-            server, "3307", database, uid, password);
+
+            //string connectionString = String.Format("server={0};Port={1}; database={2};UID={3};password={4}",server, "3307", database, uid, password);
+
+            string connectionString = "server=localhost;user id=root;password=;persistsecurityinfo=True;port=;database=martabakprovis;SslMode=none";
 
             connection = new MySqlConnection(connectionString);
         }

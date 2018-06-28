@@ -192,6 +192,7 @@ namespace MartabakProvis.Controllers
             {
                 if (repo.UpdateStatus(id, stat))
                 {
+                    HubContext.Clients.All.SendAsync("waitingNotif");
                     return Ok();
                 }
                 else

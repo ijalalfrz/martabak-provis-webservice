@@ -181,7 +181,7 @@ namespace MartabakProvis.Controllers
             }
         }
 
-        // POST: api/Transaksi/statusToCooking/5
+        // POST: api/Transaksi/status/5/cooking
         [HttpPost("status/{id}/cooking", Name = "UpdateStatusToCoking")]
         public IActionResult UpdateStatusToCoking(int id)
         {

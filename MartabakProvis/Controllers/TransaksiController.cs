@@ -181,6 +181,27 @@ namespace MartabakProvis.Controllers
             }
         }
 
+        // POST: api/Transaksi/statusToCooking/5
+        [HttpPost("statusToCooking/{id}", Name = "UpdateStatusToCoking")]
+        public IActionResult UpdateStatusToCoking(int id)
+        {
+            try
+            {
+                if (repo.UpdateStatusToCooking(id))
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // GET: api/Transaksi/toko/5
         [HttpGet("toko/{id}/{order}/{limit?}", Name = "GetTransaksiByIdToko")]
         public IActionResult GetTransaksiByIdToko(int id, string order, int? limit)

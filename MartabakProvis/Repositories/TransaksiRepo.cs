@@ -267,6 +267,28 @@ namespace MartabakProvis.Repositories
 
         }
 
+        public bool UpdateStatusToCooking(int id)
+        {
+            try
+            {
+                TransaksiModel transaksi = new TransaksiModel();
+                transaksi = GetById(id);
+                transaksi.status = "cooking";
+                if (Update(transaksi))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool UpdateStatus(int id)
         {
             try

@@ -249,6 +249,25 @@ namespace MartabakProvis.Repositories
             
         }
 
+        public MenuModel GetBestSellerMenu()
+        {
+            try
+            {
+                db.Open();
+                string sql = "SELECT * from t_detail_transaksi GROUP BY id_menu having count(*) > 0 order by count(*) desc limit 1";
+                var trans = db.connection.QuerySingleOrDefault<DetailTransaksiModel>(sql);
+
+                MenuRepo mrepo = new MenuRepo();
+
+                var data = mrepo.GetById(trans.id_menu);
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
 
         public int? GetLastId()
         {

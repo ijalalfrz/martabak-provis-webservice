@@ -137,6 +137,30 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Transaksi/best
+        [HttpGet("best", Name = "GetBestSellerMenu")]
+        public IActionResult GetBestSellerMenu()
+        {
+            try
+            {
+                IActionResult response;
+                var data = repo.GetBestSellerMenu();
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // GET: api/Transaksi/waiting
         [HttpGet("status/{stat}/{order}/{limit?}", Name = "GetTransaksiByStatus")]
         public IActionResult GetTransaksiByStatus(string stat, string order, int? limit)

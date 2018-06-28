@@ -129,6 +129,30 @@ namespace MartabakProvis.Controllers
 
         }
 
+        // GET: api/Menu/best/10
+        [HttpGet("best/{limit?}", Name = "GetBestSellerMenu")]
+        public IActionResult GetBestSellerMenu(int? limit)
+        {
+            try
+            {
+                IActionResult response;
+                var data = repo.GetBestSellerMenu(limit);
+                if (data != null)
+                {
+                    return Ok(data);
+                }
+                else
+                {
+                    return NotFound();
+                }
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         // GET: api/Menu/topping/asc
         [HttpGet("topping/{sort}", Name = "GetSortedTopping")]
         public IActionResult GetSortedTopping(string sort)

@@ -112,6 +112,43 @@ namespace MartabakProvis.Repositories
 
         }
 
+        public List<MenuModel> GetBestSellerMenu(int? limit)
+        {
+            try
+            {
+                string lim = "";
+                if (limit != null)
+                {
+                    lim = " LIMIT " + limit;
+                }
+                else
+                {
+                    lim = " LIMIT 1";
+                }
+
+                db.Open();
+                string sql = "SELECT * from t_detail_transaksi GROUP BY id_menu having count(*) > 0 order by count(*) desc";
+                sql += lim;
+                var trans = db.connection.Query<DetailTransaksiModel>(sql).ToList();
+
+                MenuRepo mrepo = new MenuRepo();
+                MenuModel menu = new MenuModel();
+
+                List<MenuModel> data = new List<MenuModel>();
+                foreach (var all in trans)
+                {
+                    menu = mrepo.GetById(all.id_menu);
+                    data.Add(menu);
+                }
+                db.Close();
+                return data;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
         public List<MenuModel> GetAllByTopping(string sort)
         {
             try

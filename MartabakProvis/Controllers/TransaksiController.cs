@@ -161,33 +161,12 @@ namespace MartabakProvis.Controllers
         }
 
         // POST: api/Transaksi/status/5
-        [HttpPost("status/{id}", Name = "UpdateStatus")]
-        public IActionResult UpdateStatus(int id)
+        [HttpPost("status/{id}/{stat}", Name = "UpdateStatus")]
+        public IActionResult UpdateStatus(int id, string stat)
         {
             try
             {
-                if (repo.UpdateStatus(id))
-                {
-                    return Ok();
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
-        // POST: api/Transaksi/status/5/cooking
-        [HttpPost("status/{id}/cooking", Name = "UpdateStatusToCoking")]
-        public IActionResult UpdateStatusToCoking(int id)
-        {
-            try
-            {
-                if (repo.UpdateStatusToCooking(id))
+                if (repo.UpdateStatus(id, stat))
                 {
                     return Ok();
                 }

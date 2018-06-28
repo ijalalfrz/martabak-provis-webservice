@@ -28,6 +28,7 @@ namespace MartabakProvis.Controllers
             get;
             set;
         }
+        
         // GET: api/Transaksi
         [HttpGet("sort/{order}/{limit?}", Name = "GetAllWithDetail")]
         public IActionResult GetAllWithDetail(string order, int? limit)

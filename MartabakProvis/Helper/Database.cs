@@ -36,6 +36,7 @@ namespace MartabakProvis.Helper
             "server={0};Port={1}; database={2};UID={3};password={4}",
             server, port, database, uid, password);
 
+
             connection = new MySqlConnection(connectionString);
         }
 
